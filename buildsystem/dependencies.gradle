@@ -1,0 +1,75 @@
+ext.deps = [:]
+def versions = [:]
+
+versions.android_gradle_plugin = '3.0.1'
+
+def deps = [:]
+
+//=============================================== SUPPORT ==========================================
+versions.support = "27.0.2"
+versions.constraint = "1.0.2"
+
+def support = [:]
+support.annotations = "com.android.support:support-annotations:$versions.support"
+support.appcompat = "com.android.support:appcompat-v7:$versions.support"
+support.design = "com.android.support:design:$versions.support"
+support.recyclerview = "com.android.support:recyclerview-v7:$versions.support"
+support.constraint = "com.android.support.constraint:constraint-layout:$versions.constraint"
+deps.support = support
+
+//============================================== KOTLIN ============================================
+versions.kotlin = '1.2.10'
+def kotlin = [:]
+kotlin.stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jre7:$versions.kotlin"
+kotlin.test = "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlin"
+kotlin.gradle_plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+deps.kotlin = kotlin
+
+versions.coroutines = '0.19.3'
+def coroutines = [:]
+coroutines.core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines"
+coroutines.android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
+coroutines.rx = "org.jetbrains.kotlinx:kotlinx-coroutines-rx2:$versions.coroutines"
+deps.coroutines = coroutines
+
+//================================================ RX ==============================================
+
+def rx = [:]
+rx.java ="io.reactivex.rxjava2:rxjava:2.1.7"
+rx.android = "io.reactivex.rxjava2:rxandroid:2.0.1"
+deps.rx = rx
+
+//============================================== DAGGER ============================================
+versions.dagger = '2.13'
+def dagger = [:]
+dagger.lib = "com.google.dagger:dagger:$versions.dagger"
+dagger.processor = "com.google.dagger:dagger-compiler:$versions.dagger"
+dagger.android = "com.google.dagger:dagger-android:$versions.dagger"
+dagger.androidProcessor = "com.google.dagger:dagger-android-processor:$versions.dagger"
+dagger.support = "com.google.dagger:dagger-android-support:$versions.dagger"
+
+deps.dagger = dagger
+//============================================== BUILD =============================================
+deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
+
+def build_versions = [:]
+build_versions.min_sdk = 21
+build_versions.target_sdk = 26
+build_versions.compile_sdk = 26
+build_versions.build_tools = "26.0.2"
+ext.build_versions = build_versions
+//============================================== TESTS =============================================
+def tests = [:]
+
+deps.tests = tests
+//============================================ REPOSITORIES ========================================
+def addRepos(RepositoryHandler handler) {
+    handler.google()
+    handler.jcenter()
+    handler.maven { url "https://jitpack.io" }
+}
+ext.addRepos = this.&addRepos
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+ext.deps = deps
+////////////////////////////////////////////////////////////////////////////////////////////////////

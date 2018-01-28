@@ -39,6 +39,32 @@ rx.java ="io.reactivex.rxjava2:rxjava:2.1.7"
 rx.android = "io.reactivex.rxjava2:rxandroid:2.0.1"
 deps.rx = rx
 
+//============================================== NETWORK ===========================================
+versions.retrofit = '2.3.0'
+def network = [:]
+network.retrofit = "com.squareup.retrofit2:retrofit:$versions.retrofit"
+deps.network = network
+//============================================= DATABASE ===========================================
+def database = [:]
+versions.archComponents = '1.0.0'
+database.roomRuntime = "android.arch.persistence.room:runtime:$versions.archComponents"
+database.roomAnnotationProcessor = "android.arch.persistence.room:compiler:$versions.archComponents"
+database.roomRxAdapter = "android.arch.persistence.room:rxjava2:$versions.archComponents"
+deps.database = database
+
+//=============================================== GLIDE ============================================
+versions.glideVersion = '4.3.1'
+versions.glideAnnoVersion = '4.3.1'
+versions.glideTransformersVersion = '3.0.1'
+
+def glide = [:]
+glide.glide            = "com.github.bumptech.glide:glide:$versions.glideVersion"
+glide.glideOkHttp      = "com.github.bumptech.glide:okhttp3-integration:$versions.glideVersion"
+glide.glideAnno        = "com.github.bumptech.glide:compiler:$versions.glideAnnoVersion"
+glide.glideTransformers= "jp.wasabeef:glide-transformations:$versions.glideTransformersVersion"
+glide.glideCompiler    = "com.github.bumptech.glide:compiler:$versions.glideVersion"
+deps.glide = glide
+
 //============================================== DAGGER ============================================
 versions.dagger = '2.13'
 def dagger = [:]
@@ -49,6 +75,12 @@ dagger.androidProcessor = "com.google.dagger:dagger-android-processor:$versions.
 dagger.support = "com.google.dagger:dagger-android-support:$versions.dagger"
 
 deps.dagger = dagger
+
+//============================================= TWITTER ============================================
+versions.twitter = '3.0.0'
+def twitter = [:]
+twitter.core = "com.twitter.sdk.android:twitter-core:$versions.twitter"
+deps.twitter = twitter
 //============================================== BUILD =============================================
 deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
 
@@ -73,3 +105,8 @@ ext.addRepos = this.&addRepos
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ext.deps = deps
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+ext {
+    databaseNameDev = 'dev-twitter-client.db'
+    databaseNameRelease = 'twitter-client.db'
+}

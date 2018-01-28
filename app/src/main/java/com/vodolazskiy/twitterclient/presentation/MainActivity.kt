@@ -1,7 +1,8 @@
-package com.vodolazskiy.twitterclient
+package com.vodolazskiy.twitterclient.presentation
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.vodolazskiy.twitterclient.R
 
 class MainActivity : AppCompatActivity() {
 

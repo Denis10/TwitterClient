@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+def globalConfiguration = rootProject.extensions.getByName("ext")
 def keystorePropertiesFile = rootProject.file("./buildsystem/keystore/keystore.properties")
 def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
@@ -55,6 +56,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    applicationVariants.all { variant ->
+        println("Iterating variant: " + variant.getName())
+        switch (variant.getName()) {
+            case 'release':
+                variant.buildConfigField "String", "DB_NAME", "\"${globalConfiguration['databaseNameRelease']}\""
+                break
+            case 'debug':
+                variant.buildConfigField "String", "DB_NAME", "\"${globalConfiguration['databaseNameDev']}\""
+                break
+        }
+    }
 }
 
 dependencies {
@@ -85,4 +98,21 @@ dependencies {
     kapt deps.dagger.androidProcessor
     implementation deps.dagger.support
 
+    //networking
+    implementation deps.network.retrofit
+
+    //database
+    implementation deps.database.roomRuntime
+    implementation deps.database.roomRxAdapter
+    kapt deps.database.roomAnnotationProcessor
+
+    //glide
+    implementation deps.glide.glide
+    annotationProcessor deps.glide.glideAnno
+    implementation deps.glide.glideTransformers
+    implementation deps.glide.glideOkHttp
+    kapt deps.glide.glideCompiler
+
+    //twitter
+    implementation deps.twitter.core
 }

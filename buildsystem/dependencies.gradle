@@ -60,7 +60,7 @@ versions.glideTransformersVersion = '3.0.1'
 def glide = [:]
 glide.glide            = "com.github.bumptech.glide:glide:$versions.glideVersion"
 glide.glideOkHttp      = "com.github.bumptech.glide:okhttp3-integration:$versions.glideVersion"
-glide.glideAnno        = "com.github.bumptech.glide:compiler:$versions.glideAnnoVersion"
+glide.glideAnnotation        = "com.github.bumptech.glide:compiler:$versions.glideAnnoVersion"
 glide.glideTransformers= "jp.wasabeef:glide-transformations:$versions.glideTransformersVersion"
 glide.glideCompiler    = "com.github.bumptech.glide:compiler:$versions.glideVersion"
 deps.glide = glide
@@ -81,6 +81,14 @@ versions.twitter = '3.0.0'
 def twitter = [:]
 twitter.core = "com.twitter.sdk.android:twitter-core:$versions.twitter"
 deps.twitter = twitter
+
+//============================================= MOSBY ==============================================
+versions.mosby = '3.1.0'
+def mosby = [:]
+mosby.core = "com.hannesdorfmann.mosby3:mvp:$versions.mosby"
+mosby.queuing = "com.hannesdorfmann.mosby3:mvp-queuing-presenter:$versions.mosby"
+deps.mosby = mosby
+
 //============================================== BUILD =============================================
 deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
 
@@ -109,4 +117,5 @@ ext.deps = deps
 ext {
     databaseNameDev = 'dev-twitter-client.db'
     databaseNameRelease = 'twitter-client.db'
+    twitterApiVersion = "1.1"
 }

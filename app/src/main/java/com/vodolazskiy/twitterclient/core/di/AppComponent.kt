@@ -8,17 +8,14 @@ import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
-/**
- * Created by denis on 1/28/18.
- */
 @Singleton
-@Component(modules = arrayOf(
-        AppModule::class,
-        AndroidModule::class,
-        ConverterModule::class,
-        DbModule::class,
-        TwitterServiceModule::class
-))
+@Component(modules = [
+    AppModule::class,
+    AndroidModule::class,
+    ConverterModule::class,
+    DbModule::class,
+    TwitterServiceModule::class
+])
 interface AppComponent {
 
     @Component.Builder

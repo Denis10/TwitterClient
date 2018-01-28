@@ -8,9 +8,6 @@ import dagger.Binds
 import dagger.Module
 import javax.inject.Singleton
 
-/**
- * Created by denis on 1/28/18.
- */
 @Module
 interface AppModule {
 

@@ -4,12 +4,8 @@ import com.twitter.sdk.android.core.*
 import com.twitter.sdk.android.core.models.Tweet
 import com.twitter.sdk.android.core.models.User
 import io.reactivex.Observable
-import javax.inject.Inject
 
-/**
- * Created by denis on 1/28/18.
- */
-internal class TwitterServiceImpl @Inject constructor(session: TwitterSession) : TwitterApiClient(session),
+internal class TwitterServiceImpl constructor(session: TwitterSession) : TwitterApiClient(session),
         TwitterService {
 
     override fun getTimelineItems(): Observable<List<Tweet>> {

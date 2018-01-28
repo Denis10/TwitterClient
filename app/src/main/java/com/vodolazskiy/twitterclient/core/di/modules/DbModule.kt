@@ -3,19 +3,16 @@ package com.vodolazskiy.twitterclient.core.di.modules
 import android.arch.persistence.room.Room
 import android.content.Context
 import com.vodolazskiy.twitterclient.BuildConfig
-import com.vodolazskiy.twitterclient.core.converter.IConvertersContext
-import com.vodolazskiy.twitterclient.data.db.DB
+import com.vodolazskiy.twitterclient.core.converter.ConvertersContext
 import com.vodolazskiy.twitterclient.data.db.DBImpl
-import com.vodolazskiy.twitterclient.data.db.DbWrapper
+import com.vodolazskiy.twitterclient.data.db.DbManager
+import com.vodolazskiy.twitterclient.data.db.DbManagerImpl
 import com.vodolazskiy.twitterclient.data.db.repositories.UserFeedRepository
 import com.vodolazskiy.twitterclient.data.db.repositories.UserFeedRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-/**
- * Created by denis on 1/28/18.
- */
 @Module
 class DbModule {
 
@@ -28,10 +25,9 @@ class DbModule {
 
     @Singleton
     @Provides
-    fun provideDbWrapper(): DB = DbWrapper()
+    fun provideDbWrapper(): DbManager = DbManagerImpl()
 
     @Singleton
     @Provides
-    fun provideUserFeedRepo(dbImpl: DBImpl, converter: IConvertersContext): UserFeedRepository
-            = UserFeedRepositoryImpl(dbImpl.getUserFeedDao(), converter)
+    fun provideUserFeedRepo(dbImpl: DBImpl, converter: ConvertersContext): UserFeedRepository = UserFeedRepositoryImpl(dbImpl.getUserFeedDao(), converter)
 }

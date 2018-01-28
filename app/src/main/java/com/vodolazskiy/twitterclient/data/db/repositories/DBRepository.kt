@@ -4,7 +4,7 @@ import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 
-interface DBRepository<Key, Entity> {
+interface DBRepository<in Key, Entity> {
     fun get(id: Key): Flowable<Entity>
     fun getAll(): Flowable<List<Entity>>
 

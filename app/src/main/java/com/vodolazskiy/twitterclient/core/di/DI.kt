@@ -10,8 +10,11 @@ import android.content.Context
 object DI {
     private var appComponent: AppComponent? = null
 
-    val context: Context get() = appComponent?.context ?: throw DependencyProviderException("Call init() method before!")
-    val component: AppComponent get() = appComponent ?: throw DependencyProviderException("Call init() method before!")
+    val context: Context
+        get() = appComponent?.context
+                ?: throw DependencyProviderException("Call init() method before!")
+    val component: AppComponent
+        get() = appComponent ?: throw DependencyProviderException("Call init() method before!")
 
     fun init(component: AppComponent) {
         appComponent = component

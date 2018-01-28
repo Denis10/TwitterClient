@@ -59,6 +59,7 @@ android {
 
     applicationVariants.all { variant ->
         println("Iterating variant: " + variant.getName())
+        variant.buildConfigField "String", "TWITTER_API_VERSION", "\"${globalConfiguration['twitterApiVersion']}\""
         switch (variant.getName()) {
             case 'release':
                 variant.buildConfigField "String", "DB_NAME", "\"${globalConfiguration['databaseNameRelease']}\""
@@ -108,11 +109,15 @@ dependencies {
 
     //glide
     implementation deps.glide.glide
-    annotationProcessor deps.glide.glideAnno
+    kapt deps.glide.glideAnnotation
     implementation deps.glide.glideTransformers
     implementation deps.glide.glideOkHttp
     kapt deps.glide.glideCompiler
 
     //twitter
     implementation deps.twitter.core
+
+    //mosby
+    implementation deps.mosby.core
+    implementation deps.mosby.queuing
 }

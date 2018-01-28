@@ -1,18 +1,15 @@
 package com.vodolazskiy.twitterclient.core.di.modules
 
-import com.vodolazskiy.twitterclient.core.converter.IConvertersContext
-import com.vodolazskiy.twitterclient.data.converter.Converter
+import com.vodolazskiy.twitterclient.core.converter.ConvertersContext
+import com.vodolazskiy.twitterclient.data.converter.DataConverter
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-/**
- * Created by denis on 1/28/18.
- */
 @Module
 class ConverterModule {
-    //todo add separate converters for different layers
+    //todo add separate converters for different layers using @Named annotation
     @Singleton
     @Provides
-    fun provideConverter(): IConvertersContext = Converter.get()
+    fun provideConverter(): ConvertersContext = DataConverter()
 }

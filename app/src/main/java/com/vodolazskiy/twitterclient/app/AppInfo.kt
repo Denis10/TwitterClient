@@ -7,9 +7,6 @@ import android.provider.Settings
 import com.vodolazskiy.twitterclient.core.di.DI
 import javax.inject.Inject
 
-/**
- * Created by Denis Vodolazskiy on 29.11.2017.
- */
 class AppInfo @Inject constructor(val context: Context) : IAppInfoProvider {
     @SuppressLint("HardwareIds")
     val androidIdVal = Settings.Secure.getString(DI.context.contentResolver, Settings.Secure.ANDROID_ID)

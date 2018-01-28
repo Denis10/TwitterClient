@@ -7,9 +7,6 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-/**
- * Created by denis on 1/28/18.
- */
 @Module
 class TwitterServiceModule {
 

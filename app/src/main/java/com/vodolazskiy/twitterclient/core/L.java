@@ -14,9 +14,6 @@ import java.net.UnknownHostException;
 
 import javax.net.ssl.SSLHandshakeException;
 
-/**
- * Created by Denis Vodolazskiy on 12.04.2016.
- */
 // TODO: 1/28/18 Use DI
 public final class L {
 

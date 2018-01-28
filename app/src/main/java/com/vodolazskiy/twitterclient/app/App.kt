@@ -10,9 +10,7 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import javax.inject.Inject
 
-/**
- * Created by denis on 1/28/18.
- */
+@Suppress("ProtectedInFinal")
 class App : Application(), HasActivityInjector {
     @Inject
     protected lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>

@@ -1,6 +1,6 @@
 package com.vodolazskiy.twitterclient.data.db.repositories
 
-import com.vodolazskiy.twitterclient.core.converter.IConvertersContext
+import com.vodolazskiy.twitterclient.core.converter.ConvertersContext
 import com.vodolazskiy.twitterclient.data.converter.convert
 import com.vodolazskiy.twitterclient.data.converter.convertCollectionToOut
 import com.vodolazskiy.twitterclient.data.converter.convertToOut
@@ -12,12 +12,8 @@ import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.internal.operators.completable.CompletableFromCallable
 import io.reactivex.internal.operators.single.SingleFromCallable
-import javax.inject.Inject
 
-/**
- * Created by denis on 1/28/18.
- */
-internal class UserFeedRepositoryImpl @Inject constructor(private val dao: UserFeedDao, private val converter: IConvertersContext):
+internal class UserFeedRepositoryImpl constructor(private val dao: UserFeedDao, private val converter: ConvertersContext) :
         UserFeedRepository {
     override fun get(id: String): Flowable<UserFeed> = dao.getById(id).convert(converter)
 

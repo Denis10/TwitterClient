@@ -4,14 +4,12 @@ import com.vodolazskiy.twitterclient.data.db.repositories.UserFeedRepository
 import io.reactivex.Completable
 import javax.inject.Inject
 
-/**
- * Created by denis on 1/28/18.
- */
-internal class DbWrapper @Inject constructor(): DB {
+@Suppress("ProtectedInFinal")
+internal class DbManagerImpl : DbManager {
     @Inject
     protected lateinit var userFeed: UserFeedRepository
 
     override fun deleteAll(): Completable {
-       return userFeed.removeAll()
+        return userFeed.removeAll()
     }
 }

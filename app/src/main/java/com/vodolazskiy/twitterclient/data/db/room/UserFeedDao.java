@@ -12,9 +12,6 @@ import javax.annotation.Nonnull;
 
 import io.reactivex.Flowable;
 
-/**
- * Created by denis on 1/28/18.
- */
 @Dao
 public interface UserFeedDao {
 

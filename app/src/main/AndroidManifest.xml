@@ -17,6 +17,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".presentation.screens.splash.SplashActivity"/>
+        <activity android:name=".presentation.screens.login.LoginActivity"/>
+
     </application>
 
 </manifest>

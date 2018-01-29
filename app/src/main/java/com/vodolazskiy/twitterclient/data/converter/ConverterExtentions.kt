@@ -1,10 +1,13 @@
 package com.vodolazskiy.twitterclient.data.converter
 
 import com.vodolazskiy.twitterclient.core.converter.ConvertersContext
+import com.vodolazskiy.twitterclient.core.converter.CompositeConverter
 import io.reactivex.Flowable
 import io.reactivex.Maybe
 import io.reactivex.Observable
 import kotlin.reflect.KClass
+import kotlin.reflect.KFunction3
+
 
 //todo remove unused functions
 //////////////////////////////////////// FLOWABLE EXTENSIONS ///////////////////////////////////////
@@ -65,3 +68,65 @@ inline fun <IN : Any, reified OUT : Any, InList : Iterable<IN>> ConvertersContex
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+inline fun <reified IN : Any, reified OUT : Any> ConvertersContext.registerConverter(
+        converter: KFunction3<
+                @ParameterName(name = "input") IN,
+                @ParameterName(name = "token") Any?,
+                @ParameterName(name = "convertersContext") ConvertersContext,
+                OUT>) {
+    registerConverter(IN::class.java, OUT::class.java, converter)
+}
+
+fun <IN : Any, OUT : Any> ConvertersContext.registerConverter(
+        inClass: Class<IN>,
+        outClass: Class<OUT>,
+        converter: (IN, Any?, ConvertersContext) -> OUT) {
+    registerConverter(inClass, outClass, converter::invoke)
+}
+
+inline fun <IN : Any, OUT : Any> ConvertersContext.registerConverter(
+        inClass: Class<IN>,
+        outClass: Class<OUT>,
+        crossinline converter: (IN, ConvertersContext) -> OUT) {
+    val converterWrapper = { input: IN, _: Any?, context: ConvertersContext ->
+        converter.invoke(input, context)
+    }
+    registerConverter(inClass, outClass, converterWrapper::invoke)
+}
+
+inline fun <IN : Any, OUT : Any> ConvertersContext.registerConverter(
+        inClass: Class<IN>,
+        outClass: Class<OUT>,
+        crossinline converter: (IN) -> OUT) {
+    val wrapper = { input: IN, _: Any?, _: ConvertersContext ->
+        converter.invoke(input)
+    }
+    registerConverter(inClass, outClass, wrapper::invoke)
+}
+
+inline fun <reified IN : Any, reified OUT : Any> ConvertersContext.registerConverter(
+        crossinline converter: (IN) -> OUT) {
+    val wrapper = { input: IN, _: Any?, _: ConvertersContext ->
+        converter.invoke(input)
+    }
+    registerConverter(IN::class.java, OUT::class.java, wrapper::invoke)
+}
+
+/**
+ * Registers converters.
+ *
+ * @param visitorClass reference to [CompositeConverter] cass with default constructor.
+ */
+fun ConvertersContext.registerConverter(visitorClass: Class<out CompositeConverter>) {
+    visitorClass.getDeclaredConstructor().newInstance().register(this)
+}
+
+/**
+ * Registers converters.
+ *
+ * @param visitor instance of converters context visitor
+ */
+fun ConvertersContext.registerConverter(visitor: CompositeConverter) {
+    visitor.register(this)
+}

@@ -1,30 +1,39 @@
 package com.vodolazskiy.twitterclient.core.converter
 
 
-import com.vodolazskiy.twitterclient.core.L
 import kotlin.reflect.KFunction3
 
-//todo simplify it
 abstract class BaseConvertersContextImpl : ConvertersContext {
-    private val converters = HashMap<Class<*>, HashMap<Class<*>, KFunction3<*, Any?, ConvertersContext, *>>>()
+    private val converters = HashMap<
+            Class<out Any> /*IN*/,
+            MutableMap<
+                    Class<out Any>,
+                    KFunction3<
+                            Any /*IN*/,
+                            Any? /*Token*/,
+                            ConvertersContext,
+                            Any /*OUT*/>
+                    >
+            >()
 
-    override fun <IN : Any, OUT : Any> registerConverter(inClass: Class<IN>, outClass: Class<OUT>, converter: KFunction3<IN, Any?, ConvertersContext, OUT>) {
-        var out: Class<*>? = outClass
-        do {
-            registerConverterInner(inClass, out as Class<Any>, converter as KFunction3<IN, Any?, ConvertersContext, Any>)
-            out = out.superclass
-        } while (out != null && out != Any::class.java)
+    @Suppress("UNCHECKED_CAST")
+    override fun <IN : Any, OUT : Any> registerConverter(
+            inClass: Class<IN>,
+            outClass: Class<OUT>,
+            converter: KFunction3<IN, Any?, ConvertersContext, OUT>) {
 
+        //1. register classes & super classes
+        var out: Class<out Any>? = outClass
+        while (out != null && out != Any::class.java) {
+            registerConverterInternal(inClass, out as Class<OUT>, converter)
+            out = out.superclass as Class<out Any>?
+        }
+
+        //2. register interfaces
         for (outInterface in outClass.interfaces) {
-            registerConverterInner(inClass, outInterface as Class<Any>, converter as KFunction3<IN, Any?, ConvertersContext, Any>)
+            registerConverterInternal(inClass, outInterface as Class<Any>, converter)
         }
     }
-
-    override fun registerConverter(visitorClass: Class<out ConvertersContextVisitor>) {
-        registerConverter(visitorClass.getDeclaredConstructor().newInstance())
-    }
-
-    override fun registerConverter(visitor: ConvertersContextVisitor) = visitor.visit(this)
 
     override fun <IN : Any, OUT : Any> convert(input: IN, token: Any?, outClass: Class<OUT>): OUT {
         if (outClass.isInstance(input)) {
@@ -35,43 +44,24 @@ abstract class BaseConvertersContextImpl : ConvertersContext {
         return getConverter(inClass, outClass).invoke(input, token, this)
     }
 
-    override fun <IN : Any, OUT : Any> convert(input: IN, outClass: Class<OUT>): OUT = convert(input, Unit, outClass)
-
     override fun <IN : Any, OUT : Any> convertCollection(collection: Iterable<IN>, token: Any?, outClass: Class<OUT>): List<OUT> =
             collection.map { convert(it, token, outClass) }
 
-    override fun <IN : Any, OUT : Any> convert(outClass: Class<OUT>, token: Any?): (input: IN) -> OUT = {
-        convert(it, token, outClass)
-    }
-
-    override fun <IN : Any, OUT : Any> convert(outClass: Class<OUT>): (input: IN) -> OUT = {
-        convert(it, outClass)
-    }
-
-    override fun <IN : Any, OUT : Any> convertCollection(collection: Iterable<IN>, outClass: Class<OUT>): List<OUT> =
-            convertCollection(collection, Unit, outClass)
-
-
-    override fun <IN : Any, OUT : Any> convertCollection(outClass: Class<OUT>): (input: Iterable<IN>) -> List<OUT> = {
-        convertCollection(it, outClass)
-    }
-
+    @Suppress("UNCHECKED_CAST")
     private fun <IN : Any, OUT : Any> getConverter(
             inClass: Class<IN>,
             outClass: Class<OUT>): KFunction3<IN, Any?, ConvertersContext, OUT> {
 
-        var input: Class<*>? = inClass
-        do {
-            val fromConverters = converters[input]
-            if (fromConverters != null) {
-                val entityConverter = fromConverters[outClass]
-                if (entityConverter != null) {
-                    return entityConverter as KFunction3<IN, Any?, ConvertersContext, OUT>
+        var clazz: Class<out Any>? = inClass
+
+        while (clazz != null) {
+            converters[clazz]?.let {
+                it[outClass]?.let {
+                    return it as KFunction3<IN, Any?, ConvertersContext, OUT>
                 }
             }
-
-            input = input?.superclass
-        } while (input != null)
+            clazz = clazz.superclass as Class<out Any>?
+        }
 
         //search by interfaces
         inClass.interfaces
@@ -85,37 +75,37 @@ abstract class BaseConvertersContextImpl : ConvertersContext {
         converterNotFound(inClass, outClass)
     }
 
-    private fun <IN : Any, OUT : Any> registerConverterInner(inClass: Class<IN>, outClass: Class<OUT>, converter: KFunction3<IN, Any?, ConvertersContext, OUT>) {
-        L.i(TAG, "Register converter " + converter.javaClass.simpleName + " as " + inClass.simpleName + " -> " + outClass.simpleName)
+    private fun <IN : Any, OUT : Any> registerConverterInternal(
+            inClass: Class<IN>,
+            outClass: Class<OUT>,
+            converter: KFunction3<IN, Any?, ConvertersContext, OUT>) {
 
         var innerMap = converters[inClass]
         if (innerMap == null) {
-            innerMap = java.util.HashMap()
-            converters[inClass] = innerMap
+            innerMap = HashMap()
+            converters.put(inClass, innerMap)
         }
 
         val existConverter = innerMap[outClass]
         if (existConverter != null) {
             val exception = IllegalStateException(
-                    "DataConverter " + inClass.simpleName +
-                            " -> " + outClass.simpleName +
-                            " is already registered as " + existConverter.javaClass.canonicalName +
-                            ". So, converter " + converter.javaClass.canonicalName + " cannot be registered!")
-            L.e(TAG, exception)
+                    "Converter ${inClass.name} -> ${outClass.name} " +
+                            "is already registered as ${existConverter.javaClass.name}. " +
+                            "So, converter ${converter.javaClass.name} cannot be registered!")
             throw exception
         }
 
-        innerMap[outClass] = converter
+        @Suppress("UNCHECKED_CAST")
+        innerMap.put(outClass, converter as KFunction3<Any, Any?, ConvertersContext, Any>)
     }
 
     private fun <IN : Any, OUT : Any> converterNotFound(inClass: Class<IN>, outClass: Class<OUT>): Nothing {
         val exception = UnsupportedOperationException(TAG + " There is no available converters between " +
-                inClass.canonicalName + " and " + outClass.canonicalName)
-        L.e(TAG, exception)
+                inClass.name + " and " + outClass.name)
         throw exception
     }
 
-    companion object {
+    private companion object {
         private val TAG = BaseConvertersContextImpl::class.java.simpleName
     }
 }

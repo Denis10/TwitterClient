@@ -9,12 +9,14 @@ import com.vodolazskiy.twitterclient.data.db.DbManager
 import com.vodolazskiy.twitterclient.data.db.DbManagerImpl
 import com.vodolazskiy.twitterclient.data.db.repositories.UserFeedRepository
 import com.vodolazskiy.twitterclient.data.db.repositories.UserFeedRepositoryImpl
+import com.vodolazskiy.twitterclient.data.prefs.PersistenceStorage
+import com.vodolazskiy.twitterclient.data.prefs.PersistenceStorageImpl
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class DbModule {
+class PersistenceModule {
 
     @Singleton
     @Provides
@@ -30,4 +32,8 @@ class DbModule {
     @Singleton
     @Provides
     fun provideUserFeedRepo(dbImpl: DBImpl, converter: ConvertersContext): UserFeedRepository = UserFeedRepositoryImpl(dbImpl.getUserFeedDao(), converter)
+
+    @Singleton
+    @Provides
+    fun providePrefs(context: Context): PersistenceStorage = PersistenceStorageImpl(context)
 }

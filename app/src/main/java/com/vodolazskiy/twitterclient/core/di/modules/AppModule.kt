@@ -3,7 +3,7 @@ package com.vodolazskiy.twitterclient.core.di.modules
 import com.vodolazskiy.twitterclient.app.AppInfo
 import com.vodolazskiy.twitterclient.app.BuildConfigInfoProviderImpl
 import com.vodolazskiy.twitterclient.app.IAppInfoProvider
-import com.vodolazskiy.twitterclient.app.IBuildConfigInfoProvider
+import com.vodolazskiy.twitterclient.app.BuildConfigInfoProvider
 import dagger.Binds
 import dagger.Module
 import javax.inject.Singleton
@@ -13,7 +13,7 @@ interface AppModule {
 
     @Singleton
     @Binds
-    fun provideBuildConfig(config: BuildConfigInfoProviderImpl): IBuildConfigInfoProvider
+    fun provideBuildConfig(config: BuildConfigInfoProviderImpl): BuildConfigInfoProvider
 
     @Singleton
     @Binds

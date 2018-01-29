@@ -1,6 +1,10 @@
 package com.vodolazskiy.twitterclient.presentation.screens.login
 
-import com.hannesdorfmann.mosby3.mvp.MvpView
+import com.vodolazskiy.twitterclient.presentation.BaseView
 
-interface LoginView : MvpView {
+interface LoginView : BaseView {
+
+    fun openFeedScreen()
+
+    fun showLoginError(text: String)
 }

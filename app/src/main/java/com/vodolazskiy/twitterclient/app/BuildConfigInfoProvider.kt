@@ -1,6 +1,6 @@
 package com.vodolazskiy.twitterclient.app
 
-interface IBuildConfigInfoProvider {
+interface BuildConfigInfoProvider {
     val isDebug: Boolean
 
     val applicationId: String

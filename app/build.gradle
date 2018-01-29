@@ -23,6 +23,9 @@ android {
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
         versionCode 1
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        resValue "string", "twitter_key", globalConfiguration['twitterKey']
+        resValue "string", "twitter_secret", globalConfiguration['twitterSecret']
     }
     sourceSets {
         main {
@@ -98,9 +101,6 @@ dependencies {
     implementation deps.dagger.android
     kapt deps.dagger.androidProcessor
     implementation deps.dagger.support
-
-    //networking
-    implementation deps.network.retrofit
 
     //database
     implementation deps.database.roomRuntime

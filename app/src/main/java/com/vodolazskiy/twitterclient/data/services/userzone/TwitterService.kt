@@ -1,4 +1,4 @@
-package com.vodolazskiy.twitterclient.data.services
+package com.vodolazskiy.twitterclient.data.services.userzone
 
 import com.twitter.sdk.android.core.models.Tweet
 import com.twitter.sdk.android.core.models.User

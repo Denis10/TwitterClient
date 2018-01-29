@@ -3,6 +3,10 @@ package com.vodolazskiy.twitterclient.app
 import android.app.Activity
 import android.app.Application
 import android.os.StrictMode
+import com.twitter.sdk.android.core.Twitter
+import com.twitter.sdk.android.core.TwitterAuthConfig
+import com.twitter.sdk.android.core.TwitterConfig
+import com.vodolazskiy.twitterclient.R
 import com.vodolazskiy.twitterclient.core.di.DI
 import com.vodolazskiy.twitterclient.core.di.DaggerAppComponent
 import dagger.android.AndroidInjector
@@ -15,7 +19,7 @@ class App : Application(), HasActivityInjector {
     @Inject
     protected lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
     @Inject
-    protected lateinit var buildConfig: IBuildConfigInfoProvider
+    protected lateinit var buildConfig: BuildConfigInfoProvider
 
     override fun onCreate() {
         super.onCreate()
@@ -25,6 +29,12 @@ class App : Application(), HasActivityInjector {
                 .build()
         component.inject(this)
         DI.init(component)
+
+        val twitterKey = getString(R.string.twitter_key)
+        val twitterSecret = getString(R.string.twitter_secret)
+        Twitter.initialize(TwitterConfig.Builder(this)
+                .twitterAuthConfig(TwitterAuthConfig(twitterKey, twitterSecret))
+                .build())
 
         if (buildConfig.isDebug) {
             val policy = StrictMode.VmPolicy.Builder()

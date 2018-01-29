@@ -4,7 +4,7 @@ import android.os.Build
 import com.vodolazskiy.twitterclient.BuildConfig
 import javax.inject.Inject
 
-class BuildConfigInfoProviderImpl @Inject constructor() : IBuildConfigInfoProvider {
+class BuildConfigInfoProviderImpl @Inject constructor() : BuildConfigInfoProvider {
 
     override val isDebug: Boolean = BuildConfig.DEBUG
 

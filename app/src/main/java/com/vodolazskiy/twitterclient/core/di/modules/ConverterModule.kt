@@ -12,4 +12,12 @@ class ConverterModule {
     @Singleton
     @Provides
     fun provideConverter(): ConvertersContext = DataConverter()
+
+//    @Singleton
+//    @Provides
+//    fun provideUserConverter(): CompositeConverter = UserFeedConverter()
+//
+//    @Singleton
+//    @Provides
+//    fun provideLoginConverter(): CompositeConverter = LoginConverter()
 }

@@ -1,34 +1,38 @@
 package com.vodolazskiy.twitterclient.data.db.repositories
 
 import com.vodolazskiy.twitterclient.core.converter.ConvertersContext
-import com.vodolazskiy.twitterclient.data.converter.convert
-import com.vodolazskiy.twitterclient.data.converter.convertCollectionToOut
-import com.vodolazskiy.twitterclient.data.converter.convertToOut
+import com.vodolazskiy.twitterclient.core.converter.convert
+import com.vodolazskiy.twitterclient.core.converter.convertCollectionToOut
+import com.vodolazskiy.twitterclient.core.converter.convertToOut
+import com.vodolazskiy.twitterclient.core.di.annotation.DataConverterQualifier
 import com.vodolazskiy.twitterclient.data.db.room.UserFeedDao
 import com.vodolazskiy.twitterclient.data.db.room.UserFeedDbEntity
-import com.vodolazskiy.twitterclient.data.modelinterfaces.UserFeed
+import com.vodolazskiy.twitterclient.data.modelinterfaces.UserFeedEntity
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.internal.operators.completable.CompletableFromCallable
 import io.reactivex.internal.operators.single.SingleFromCallable
 
-internal class UserFeedRepositoryImpl constructor(private val dao: UserFeedDao, private val converter: ConvertersContext) :
+internal class UserFeedRepositoryImpl constructor(private val dao: UserFeedDao,
+                                                  @DataConverterQualifier private val converter: ConvertersContext) :
         UserFeedRepository {
-    override fun get(id: String): Flowable<UserFeed> = dao.getById(id).convert(converter)
+    override fun get(id: String): Flowable<UserFeedEntity> = dao.getById(id).convert(converter)
 
-    override fun getAll(): Flowable<List<UserFeed>> = dao.all.convert(converter)
+    override fun getAll(): Flowable<List<UserFeedEntity>> = dao.all.convert(converter)
 
-    override fun insert(entity: UserFeed): Completable = CompletableFromCallable {
+    override fun insert(entity: UserFeedEntity): Single<UserFeedEntity> = SingleFromCallable {
         val convertedEntity: UserFeedDbEntity = converter.convertToOut(entity)
         dao.insert(convertedEntity)
+        entity
     }
 
-    override fun insertAll(entities: List<UserFeed>): Completable = CompletableFromCallable {
+    override fun insertAll(entities: List<UserFeedEntity>): Single<List<UserFeedEntity>> = SingleFromCallable {
         dao.insert(converter.convertCollectionToOut(entities))
+        entities
     }
 
-    override fun remove(entity: List<UserFeed>): Completable = removeById(entity.map { it.id })
+    override fun remove(entity: List<UserFeedEntity>): Completable = removeById(entity.map { it.id })
 
     override fun removeById(id: List<String>): Completable = CompletableFromCallable {
         if (id.isNotEmpty()) {

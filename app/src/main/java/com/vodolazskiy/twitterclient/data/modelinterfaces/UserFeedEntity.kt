@@ -1,6 +1,6 @@
 package com.vodolazskiy.twitterclient.data.modelinterfaces
 
 //todo add fields
-interface UserFeed : DataModel {
+interface UserFeedEntity : DataModel {
     val id: String
 }

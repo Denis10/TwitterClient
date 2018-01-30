@@ -8,8 +8,8 @@ interface DBRepository<in Key, Entity> {
     fun get(id: Key): Flowable<Entity>
     fun getAll(): Flowable<List<Entity>>
 
-    fun insert(entity: Entity): Completable
-    fun insertAll(entities: List<Entity>): Completable
+    fun insert(entity: Entity): Single<Entity>
+    fun insertAll(entities: List<Entity>): Single<List<Entity>>
 
     fun remove(entity: List<Entity>): Completable
     fun removeById(id: List<Key>): Completable

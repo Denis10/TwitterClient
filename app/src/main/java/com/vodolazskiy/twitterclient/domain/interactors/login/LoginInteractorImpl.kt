@@ -2,12 +2,12 @@ package com.vodolazskiy.twitterclient.domain.interactors.login
 
 import android.app.Activity
 import android.content.Intent
-import com.vodolazskiy.twitterclient.data.prefs.PersistenceStorage
+import com.vodolazskiy.twitterclient.data.prefs.PrefsStorage
 import com.vodolazskiy.twitterclient.data.services.login.TwitterOauthService
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class LoginInteractorImpl @Inject constructor(private val storage: PersistenceStorage,
+class LoginInteractorImpl @Inject constructor(private val storage: PrefsStorage,
                                               private val oauthService: TwitterOauthService) : LoginInteractor {
 
     override fun login(activity: Activity): Observable<Unit> {

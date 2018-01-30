@@ -1,7 +1,5 @@
-package com.vodolazskiy.twitterclient.data.converter
+package com.vodolazskiy.twitterclient.core.converter
 
-import com.vodolazskiy.twitterclient.core.converter.ConvertersContext
-import com.vodolazskiy.twitterclient.core.converter.CompositeConverter
 import io.reactivex.Flowable
 import io.reactivex.Maybe
 import io.reactivex.Observable

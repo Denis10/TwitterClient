@@ -1,14 +1,17 @@
 package com.vodolazskiy.twitterclient.data.converter
 
 import com.vodolazskiy.twitterclient.core.converter.BaseConvertersContextImpl
-import com.vodolazskiy.twitterclient.data.converter.composite.LoginConverter
-import com.vodolazskiy.twitterclient.data.converter.composite.UserFeedConverter
+import com.vodolazskiy.twitterclient.core.converter.CompositeConverter
+import com.vodolazskiy.twitterclient.core.converter.registerConverter
+import com.vodolazskiy.twitterclient.core.di.annotation.LoginQualifier
+import com.vodolazskiy.twitterclient.core.di.annotation.UserFeedEntityQualifier
 
-internal class DataConverter : BaseConvertersContextImpl() {
+internal class DataConverter constructor(@UserFeedEntityQualifier userFeedEntityConverter: CompositeConverter,
+                                         @LoginQualifier loginConverter: CompositeConverter) :
+        BaseConvertersContextImpl() {
 
-    //todo use DI
     init {
-        registerConverter(UserFeedConverter())
-        registerConverter(LoginConverter())
+        registerConverter(userFeedEntityConverter)
+        registerConverter(loginConverter)
     }
 }

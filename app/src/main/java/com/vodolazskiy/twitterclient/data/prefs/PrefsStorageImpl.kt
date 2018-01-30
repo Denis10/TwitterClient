@@ -2,12 +2,15 @@ package com.vodolazskiy.twitterclient.data.prefs
 
 import android.content.Context
 import android.content.SharedPreferences
-import javax.inject.Inject
+import io.reactivex.Completable
+import io.reactivex.internal.operators.completable.CompletableFromCallable
 
-class PersistenceStorageImpl(context: Context) : PersistenceStorage {
+class PrefsStorageImpl(context: Context) : PrefsStorage {
     private val prefs: SharedPreferences = context.getSharedPreferences("TwitterClient", Context.MODE_PRIVATE)
 
     override var twitterToken: String?
         get() = prefs.getString("id", null)
         set(value) = prefs.edit().putString("id", value).apply()
+
+    override fun clear(): Completable = CompletableFromCallable { prefs.edit().clear().apply() }
 }

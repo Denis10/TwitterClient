@@ -31,7 +31,7 @@ class LoginActivity : BaseActivity<LoginView, LoginPresenter>(), LoginView {
     }
 
     override fun openFeedScreen() {
-        feedActivityManager.start(applicationContext)
+        feedActivityManager.start(context = this)
         finish()
     }
 

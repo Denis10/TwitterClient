@@ -2,7 +2,7 @@ package com.vodolazskiy.twitterclient.presentation.screens.splash
 
 import android.os.Bundle
 import com.vodolazskiy.twitterclient.R
-import com.vodolazskiy.twitterclient.presentation.BaseActivity
+import com.vodolazskiy.twitterclient.presentation.base.BaseActivity
 
 class SplashActivity : BaseActivity<SplashView, SplashPresenter>(), SplashView {
 

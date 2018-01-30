@@ -5,7 +5,8 @@ import android.content.Intent
 import com.vodolazskiy.twitterclient.core.L
 import com.vodolazskiy.twitterclient.core.di.DI
 import com.vodolazskiy.twitterclient.domain.interactors.login.LoginInteractor
-import com.vodolazskiy.twitterclient.presentation.BasePresenterImpl
+import com.vodolazskiy.twitterclient.presentation.base.BasePresenterImpl
+import com.vodolazskiy.twitterclient.presentation.base.bind
 import javax.inject.Inject
 
 class LoginPresenterImpl : BasePresenterImpl<LoginView>(), LoginPresenter {
@@ -26,5 +27,6 @@ class LoginPresenterImpl : BasePresenterImpl<LoginView>(), LoginPresenter {
                 .subscribe({
                     onceViewAttached { it.openFeedScreen() }
                 }, { L .exception(it) })
+                .bind(this)
     }
 }

@@ -16,8 +16,6 @@ import com.vodolazskiy.twitterclient.R;
 
 public class LoginButton extends android.support.v7.widget.AppCompatButton {
     static final String TAG = LoginButton.class.getName();
-    static final String ERROR_MSG_NO_ACTIVITY = "TwitterLoginButton requires an activity."
-            + " Override getActivity to provide the activity for this button.";
 
     volatile TwitterAuthClient authClient;
 

@@ -2,7 +2,7 @@ package com.vodolazskiy.twitterclient.presentation.screens.feed
 
 import android.os.Bundle
 import com.vodolazskiy.twitterclient.R
-import com.vodolazskiy.twitterclient.presentation.BaseActivity
+import com.vodolazskiy.twitterclient.presentation.base.BaseActivity
 
 class FeedActivity: BaseActivity<FeedView, FeedPresenter>(), FeedView {
 

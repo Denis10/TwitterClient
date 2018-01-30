@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import com.vodolazskiy.twitterclient.R
-import com.vodolazskiy.twitterclient.presentation.BaseActivity
+import com.vodolazskiy.twitterclient.presentation.base.BaseActivity
 import com.vodolazskiy.twitterclient.presentation.screens.feed.FeedActivityManager
 import kotlinx.android.synthetic.main.activity_login.*
 import javax.inject.Inject

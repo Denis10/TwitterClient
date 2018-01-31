@@ -2,7 +2,6 @@ package com.vodolazskiy.twitterclient.data.services.userzone
 
 import com.twitter.sdk.android.core.*
 import com.twitter.sdk.android.core.models.Tweet
-import com.twitter.sdk.android.core.models.User
 import com.vodolazskiy.twitterclient.core.converter.ConvertersContext
 import com.vodolazskiy.twitterclient.core.di.annotation.DataConverterQualifier
 import com.vodolazskiy.twitterclient.data.modelinterfaces.UserFeedEntity
@@ -28,24 +27,6 @@ internal class TwitterServiceImpl constructor(session: TwitterSession, @DataConv
             }
 
             statusesService.homeTimeline(null, null, null, null, null, null, null).enqueue(callback)
-        }
-    }
-
-    override fun getCurrentUser(): Observable<User> {
-        return Observable.create { subscriber ->
-            val callback = object : Callback<User>() {
-                override fun success(result: Result<User>) {
-                    subscriber.onNext(result.data)
-                    subscriber.onComplete()
-                }
-
-                override fun failure(e: TwitterException) {
-                    subscriber.onError(handler.handle(e))
-                }
-            }
-
-            getService(UserService::class.java).show(
-                    TwitterCore.getInstance().sessionManager.activeSession.userId).enqueue(callback)
         }
     }
 

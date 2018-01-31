@@ -12,6 +12,6 @@ class LoginConverter : CompositeConverter {
     }
 
     private fun toLoginDataResponse(inItem: TwitterSession): LoginDataResponse {
-        return LoginDataResponse(inItem.authToken.token)
+        return LoginDataResponse(inItem.authToken.token, inItem.userName)
     }
 }

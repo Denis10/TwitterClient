@@ -5,8 +5,8 @@ import com.vodolazskiy.twitterclient.core.di.DI
 import com.vodolazskiy.twitterclient.core.ioToMain
 import com.vodolazskiy.twitterclient.domain.converter.models.UserFeed
 import com.vodolazskiy.twitterclient.domain.interactors.feed.UserFeedInteractor
+import com.vodolazskiy.twitterclient.domain.interactors.login.OpenZoneInteractor
 import com.vodolazskiy.twitterclient.presentation.base.BasePresenterImpl
-import com.vodolazskiy.twitterclient.presentation.base.BaseView
 import com.vodolazskiy.twitterclient.presentation.base.PaginationTool
 import com.vodolazskiy.twitterclient.presentation.base.bind
 import io.reactivex.Observable
@@ -18,6 +18,9 @@ class FeedPresenterImpl : BasePresenterImpl<FeedView>(), FeedPresenter {
     @Suppress("ProtectedInFinal")
     @Inject
     protected lateinit var feedInteractor: UserFeedInteractor
+    @Suppress("ProtectedInFinal")
+    @Inject
+    protected lateinit var openZoneInteractor: OpenZoneInteractor
 
     private var paginationSubscription: Disposable? = null
 
@@ -32,6 +35,13 @@ class FeedPresenterImpl : BasePresenterImpl<FeedView>(), FeedPresenter {
     override fun viewStarted(view: FeedView) {
         super.viewStarted(view)
 
+        openZoneInteractor.getUserName()
+                .ioToMain()
+                .subscribe({ name ->
+                    onceViewAttached { it.setScreenName(name) }
+                }, { L.exception(it) })
+                .bind(this)
+
         createPaginationTool(view)
     }
 
@@ -41,7 +51,7 @@ class FeedPresenterImpl : BasePresenterImpl<FeedView>(), FeedPresenter {
         paginationSubscription?.dispose()
     }
 
-    override fun refreshFeed(){
+    override fun refreshFeed() {
         onceViewAttached {
             it.deleteAllItems()
             resetOffset()

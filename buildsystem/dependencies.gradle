@@ -112,7 +112,6 @@ ext.deps = deps
 ext {
     databaseNameDev = 'dev-twitter-client.db'
     databaseNameRelease = 'twitter-client.db'
-    twitterApiVersion = "1.1"
 
     twitterKey = "FxVCGNWZxpyCeH14CYYeVMD5x"
     twitterSecret = "MtuUk0ittOtQY2wmIoi6EZFCNR4NSmsKzRK3WTZsWEyDDDiH25"

@@ -12,5 +12,9 @@ class PrefsStorageImpl(context: Context) : PrefsStorage {
         get() = prefs.getString("id", null)
         set(value) = prefs.edit().putString("id", value).apply()
 
+    override var userName: String?
+        get() = prefs.getString("user_name", null)
+        set(value) = prefs.edit().putString("user_name", value).apply()
+
     override fun clear(): Completable = CompletableFromCallable { prefs.edit().clear().apply() }
 }

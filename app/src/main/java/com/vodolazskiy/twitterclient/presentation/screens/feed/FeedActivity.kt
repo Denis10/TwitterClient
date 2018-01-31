@@ -53,6 +53,10 @@ class FeedActivity : BaseActivity<FeedView, FeedPresenter>(), FeedView {
     override fun addItems(items: List<UserFeed>) = adapter.add(items)
     override fun deleteAllItems() = adapter.clear()
 
+    override fun setScreenName(name: String) {
+        title = name
+    }
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelableArrayList(STATE_FEED_ADAPTER, ArrayList(adapter.dataStorage.toList()))

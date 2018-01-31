@@ -53,6 +53,21 @@ android {
         exclude 'protobuf.meta'
         exclude 'META-INF/services/javax.annotation.processing.Processor'
     }
+    signingConfigs {
+        debug {
+            storeFile file("../buildsystem/keystore/twitter_debug.keystore")
+            storePassword keystoreProperties['debugStorePassword']
+            keyAlias keystoreProperties['debugKeyAlias']
+            keyPassword keystoreProperties['debugKeyPassword']
+        }
+        release {
+            //todo change keystore
+            storeFile file("../buildsystem/keystore/twitter_debug.keystore")
+            storePassword keystoreProperties['releaseStorePassword']
+            keyAlias keystoreProperties['releaseKeyAlias']
+            keyPassword keystoreProperties['releaseKeyPassword']
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -62,7 +77,6 @@ android {
 
     applicationVariants.all { variant ->
         println("Iterating variant: " + variant.getName())
-        variant.buildConfigField "String", "TWITTER_API_VERSION", "\"${globalConfiguration['twitterApiVersion']}\""
         switch (variant.getName()) {
             case 'release':
                 variant.buildConfigField "String", "DB_NAME", "\"${globalConfiguration['databaseNameRelease']}\""

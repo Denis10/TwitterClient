@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TwText3NormalGrey">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/tw_manatee</item>
+        <item name="android:textSize">@dimen/tw_text_size_12</item>
+    </style>
+
+</resources>

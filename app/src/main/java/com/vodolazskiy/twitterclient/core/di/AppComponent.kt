@@ -4,6 +4,7 @@ import android.content.Context
 import com.vodolazskiy.twitterclient.app.App
 import com.vodolazskiy.twitterclient.app.BuildConfigInfoProvider
 import com.vodolazskiy.twitterclient.core.di.modules.*
+import com.vodolazskiy.twitterclient.presentation.base.PaginationTool
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -16,7 +17,9 @@ import javax.inject.Singleton
     PersistenceModule::class,
     TwitterServiceModule::class,
     InteractorModule::class,
-    ActivityProviderModule::class
+    ActivityProviderModule::class,
+    EventBusModule::class,
+    NetworkModule::class
 ])
 interface AppComponent : AppGraph {
 

@@ -9,6 +9,7 @@ import com.twitter.sdk.android.core.TwitterConfig
 import com.vodolazskiy.twitterclient.R
 import com.vodolazskiy.twitterclient.core.di.DI
 import com.vodolazskiy.twitterclient.core.di.DaggerAppComponent
+import com.vodolazskiy.twitterclient.core.network.NetworkConnectionChangeListener
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
@@ -20,6 +21,8 @@ class App : Application(), HasActivityInjector {
     protected lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
     @Inject
     protected lateinit var buildConfig: BuildConfigInfoProvider
+    @Inject
+    protected lateinit var networkListener: NetworkConnectionChangeListener
 
     override fun onCreate() {
         super.onCreate()
@@ -49,11 +52,14 @@ class App : Application(), HasActivityInjector {
                     .build()
             StrictMode.setThreadPolicy(threadPolicy)
         }
+
+        networkListener.register()
     }
 
     override fun activityInjector(): AndroidInjector<Activity> = dispatchingAndroidInjector
 
     override fun onTerminate() {
+        networkListener.unregister()
         DI.destroy()
         super.onTerminate()
     }

@@ -2,6 +2,7 @@ package com.vodolazskiy.twitterclient.domain.interactors.feed
 
 import com.vodolazskiy.twitterclient.core.converter.ConvertersContext
 import com.vodolazskiy.twitterclient.core.di.annotation.DomainConverterQualifier
+import com.vodolazskiy.twitterclient.core.subscribeAsync
 import com.vodolazskiy.twitterclient.data.db.repositories.UserFeedRepository
 import com.vodolazskiy.twitterclient.data.modelinterfaces.UserFeedEntity
 import com.vodolazskiy.twitterclient.data.services.userzone.TwitterService
@@ -16,7 +17,7 @@ class UserFeedInteractorImpl @Inject constructor(private val twitterService: Twi
 
     override fun getFeeds(): Observable<List<UserFeed>> {
         return twitterService.getTimelineItems()
-                .flatMap { it -> feedRepository.insertAll(it).toObservable() }
-                .flatMap { Observable.just(converter.convertCollection(it, UserFeed::class.java)) }
+                .flatMap { it -> feedRepository.insertAll(it).toObservable().subscribeAsync() }
+                .map { converter.convertCollection(it, UserFeed::class.java) }
     }
 }

@@ -1,5 +1,11 @@
 package com.vodolazskiy.twitterclient.domain.converter.models
 
-interface UserFeed {
+import android.os.Parcelable
+import java.util.*
+
+
+interface UserFeed: Parcelable {
     val id: String
+    val createdAt: Date
+    val text: String
 }

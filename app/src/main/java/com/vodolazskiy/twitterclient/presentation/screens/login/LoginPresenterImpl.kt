@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import com.vodolazskiy.twitterclient.core.L
 import com.vodolazskiy.twitterclient.core.di.DI
+import com.vodolazskiy.twitterclient.core.ioToMain
 import com.vodolazskiy.twitterclient.domain.interactors.login.LoginInteractor
 import com.vodolazskiy.twitterclient.presentation.base.BasePresenterImpl
 import com.vodolazskiy.twitterclient.presentation.base.bind
@@ -24,6 +25,7 @@ class LoginPresenterImpl : BasePresenterImpl<LoginView>(), LoginPresenter {
 
     override fun login(activity: Activity) {
         loginInteractor.login(activity)
+                .ioToMain()
                 .subscribe({
                     onceViewAttached { it.openFeedScreen() }
                 }, { L .exception(it) })

@@ -3,4 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="tw_manatee">#97989B</color>
+    <color name="tw_text_main">#303237</color>
+    <color name="tw_text_main_50">#7F303237</color>
 </resources>

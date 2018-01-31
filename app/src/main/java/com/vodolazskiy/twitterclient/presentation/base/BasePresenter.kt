@@ -1,7 +1,10 @@
 package com.vodolazskiy.twitterclient.presentation.base
 
 import com.hannesdorfmann.mosby3.mvp.MvpPresenter
-import com.hannesdorfmann.mosby3.mvp.MvpView
 
-interface BasePresenter<V : MvpView> : MvpPresenter<V> {
+interface BasePresenter<V : BaseView> : MvpPresenter<V> {
+
+    fun viewStarted(view: V)
+
+    fun viewStopped()
 }

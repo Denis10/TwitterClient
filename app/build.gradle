@@ -75,6 +75,7 @@ android {
 }
 
 dependencies {
+    //todo review it
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     //support
@@ -91,9 +92,9 @@ dependencies {
     implementation deps.rx.java
 
     //coroutines
-    implementation deps.coroutines.core
-    implementation deps.coroutines.android
-    implementation deps.coroutines.rx
+//    implementation deps.coroutines.core
+//    implementation deps.coroutines.android
+//    implementation deps.coroutines.rx
 
     //dagger
     implementation deps.dagger.lib
@@ -108,11 +109,11 @@ dependencies {
     kapt deps.database.roomAnnotationProcessor
 
     //glide
-    implementation deps.glide.glide
-    kapt deps.glide.glideAnnotation
-    implementation deps.glide.glideTransformers
-    implementation deps.glide.glideOkHttp
-    kapt deps.glide.glideCompiler
+//    implementation deps.glide.glide
+//    kapt deps.glide.glideAnnotation
+//    implementation deps.glide.glideTransformers
+//    implementation deps.glide.glideOkHttp
+//    kapt deps.glide.glideCompiler
 
     //twitter
     implementation deps.twitter.core

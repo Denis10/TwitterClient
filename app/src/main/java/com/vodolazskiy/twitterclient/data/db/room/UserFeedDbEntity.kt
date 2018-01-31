@@ -10,7 +10,7 @@ import java.util.*
 data class UserFeedDbEntity(
         @PrimaryKey
         @ColumnInfo(name = "id")
-        override val id: String,
+        override val id: Long,
         @ColumnInfo(name = "createdAt")
         override val createdAt: Date,
         @ColumnInfo(name = "text")

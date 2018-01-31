@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.vodolazskiy.twitterclient.R
 import com.vodolazskiy.twitterclient.domain.converter.models.UserFeed
-import com.vodolazskiy.twitterclient.presentation.base.BasePaginationRVAdapter
+import com.vodolazskiy.twitterclient.presentation.base.adapter.BasePaginationRVAdapter
 import kotlinx.android.synthetic.main.item_feed.view.*
 
 class FeedHolder private constructor(itemView: View) : BasePaginationRVAdapter.BaseVH<UserFeed>(itemView) {

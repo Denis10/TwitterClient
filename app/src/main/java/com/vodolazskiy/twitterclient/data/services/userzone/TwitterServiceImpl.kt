@@ -6,6 +6,7 @@ import com.vodolazskiy.twitterclient.core.converter.ConvertersContext
 import com.vodolazskiy.twitterclient.core.di.annotation.DataConverterQualifier
 import com.vodolazskiy.twitterclient.data.modelinterfaces.UserFeedEntity
 import com.vodolazskiy.twitterclient.data.services.NetworkExceptionHandler
+import com.vodolazskiy.twitterclient.data.services.userzone.request.GetUserFeeds
 import io.reactivex.Observable
 
 internal class TwitterServiceImpl constructor(session: TwitterSession, @DataConverterQualifier private val converter: ConvertersContext,
@@ -13,7 +14,7 @@ internal class TwitterServiceImpl constructor(session: TwitterSession, @DataConv
         TwitterApiClient(session),
         TwitterService {
 
-    override fun getTimelineItems(): Observable<List<UserFeedEntity>> {
+    override fun getTimelineItems(request: GetUserFeeds): Observable<List<UserFeedEntity>> {
         return Observable.create<List<UserFeedEntity>> { subscriber ->
             val callback = object : Callback<List<Tweet>>() {
                 override fun success(result: Result<List<Tweet>>) {
@@ -26,7 +27,7 @@ internal class TwitterServiceImpl constructor(session: TwitterSession, @DataConv
                 }
             }
 
-            statusesService.homeTimeline(null, null, null, null, null, null, null).enqueue(callback)
+            statusesService.homeTimeline(request.limit, request.sinceId, request.maxId, null, true, null, null).enqueue(callback)
         }
     }
 

@@ -17,7 +17,7 @@ import io.reactivex.internal.operators.single.SingleFromCallable
 internal class UserFeedRepositoryImpl constructor(private val dao: UserFeedDao,
                                                   @DataConverterQualifier private val converter: ConvertersContext) :
         UserFeedRepository {
-    override fun get(id: String): Flowable<UserFeedEntity> = dao.getById(id).convert(converter)
+    override fun get(id: Long): Flowable<UserFeedEntity> = dao.getById(id).convert(converter)
 
     override fun getAll(): Flowable<List<UserFeedEntity>> = dao.all.convert(converter)
 
@@ -34,7 +34,7 @@ internal class UserFeedRepositoryImpl constructor(private val dao: UserFeedDao,
 
     override fun remove(entity: List<UserFeedEntity>): Completable = removeById(entity.map { it.id })
 
-    override fun removeById(id: List<String>): Completable = CompletableFromCallable {
+    override fun removeById(id: List<Long>): Completable = CompletableFromCallable {
         if (id.isNotEmpty()) {
             dao.deleteById(id)
         }

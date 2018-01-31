@@ -5,7 +5,7 @@ import java.util.*
 
 
 interface UserFeed: Parcelable {
-    val id: String
+    val id: Long
     val createdAt: Date
     val text: String
 }

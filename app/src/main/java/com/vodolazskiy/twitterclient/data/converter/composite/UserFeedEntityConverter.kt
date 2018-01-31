@@ -19,6 +19,6 @@ class UserFeedEntityConverter : CompositeConverter {
     private fun restToDb(inItem: Tweet): UserFeedDbEntity {
         val date = dateFormat.parse(inItem.createdAt)
         //todo add fields
-        return UserFeedDbEntity(inItem.idStr, date, inItem.text)
+        return UserFeedDbEntity(inItem.id, date, inItem.text)
     }
 }

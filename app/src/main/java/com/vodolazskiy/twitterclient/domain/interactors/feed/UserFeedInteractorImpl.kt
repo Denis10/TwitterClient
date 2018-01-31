@@ -5,7 +5,10 @@ import com.vodolazskiy.twitterclient.core.di.annotation.DomainConverterQualifier
 import com.vodolazskiy.twitterclient.core.subscribeAsync
 import com.vodolazskiy.twitterclient.data.db.repositories.UserFeedRepository
 import com.vodolazskiy.twitterclient.data.services.userzone.TwitterService
+import com.vodolazskiy.twitterclient.data.services.userzone.request.GetUserFeeds
 import com.vodolazskiy.twitterclient.domain.converter.models.UserFeed
+import com.vodolazskiy.twitterclient.domain.interactors.feed.request.GetNewerUserFeeds
+import com.vodolazskiy.twitterclient.domain.interactors.feed.request.GetOlderUserFeeds
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -13,8 +16,15 @@ class UserFeedInteractorImpl @Inject constructor(private val twitterService: Twi
                                                  private val feedRepository: UserFeedRepository,
                                                  @DomainConverterQualifier private val converter: ConvertersContext) :
         UserFeedInteractor {
-    override fun getFeeds(): Observable<List<UserFeed>> {
-        return twitterService.getTimelineItems()
+
+    override fun getFeeds(request: GetNewerUserFeeds): Observable<List<UserFeed>> {
+        return twitterService.getTimelineItems(converter.convert(request, GetUserFeeds::class.java))
+                .flatMap { it -> feedRepository.insertAll(it).toObservable().subscribeAsync() }
+                .map { converter.convertCollection(it, UserFeed::class.java) }
+    }
+
+    override fun getFeeds(request: GetOlderUserFeeds): Observable<List<UserFeed>> {
+        return twitterService.getTimelineItems(converter.convert(request, GetUserFeeds::class.java))
                 .flatMap { it -> feedRepository.insertAll(it).toObservable().subscribeAsync() }
                 .map { converter.convertCollection(it, UserFeed::class.java) }
     }

@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
 
 import io.reactivex.Flowable;
 
@@ -16,7 +15,7 @@ import io.reactivex.Flowable;
 public interface UserFeedDao {
 
     @Query("select * from UserFeed where id = :id")
-    Flowable<UserFeedDbEntity> getById(@NonNull String id);
+    Flowable<UserFeedDbEntity> getById(@NonNull Long id);
 
     @Query("select * from UserFeed order by id")
     Flowable<List<UserFeedDbEntity>> getAll();
@@ -28,7 +27,7 @@ public interface UserFeedDao {
     void insert(@NonNull List<UserFeedDbEntity> offenderDbEntities);
 
     @Query("delete from UserFeed where id in (:ids)")
-    void deleteById(@Nonnull List<String> ids);
+    void deleteById(@NonNull List<Long> ids);
 
     @Query("delete from UserFeed")
     void deleteAll();

@@ -1,4 +1,4 @@
-package com.vodolazskiy.twitterclient.presentation.base
+package com.vodolazskiy.twitterclient.presentation.base.adapter
 
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView

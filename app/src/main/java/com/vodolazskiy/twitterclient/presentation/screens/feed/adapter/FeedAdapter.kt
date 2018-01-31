@@ -3,7 +3,7 @@ package com.vodolazskiy.twitterclient.presentation.screens.feed.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.vodolazskiy.twitterclient.domain.converter.models.UserFeed
-import com.vodolazskiy.twitterclient.presentation.base.BaseSortedPaginationRVAdapter
+import com.vodolazskiy.twitterclient.presentation.base.adapter.BaseSortedPaginationRVAdapter
 import javax.inject.Inject
 
 class FeedAdapter @Inject constructor(): BaseSortedPaginationRVAdapter<UserFeed>() {

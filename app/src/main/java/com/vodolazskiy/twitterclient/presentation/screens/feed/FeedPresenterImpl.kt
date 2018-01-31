@@ -5,9 +5,11 @@ import com.vodolazskiy.twitterclient.core.di.DI
 import com.vodolazskiy.twitterclient.core.ioToMain
 import com.vodolazskiy.twitterclient.domain.converter.models.UserFeed
 import com.vodolazskiy.twitterclient.domain.interactors.feed.UserFeedInteractor
+import com.vodolazskiy.twitterclient.domain.interactors.feed.request.GetNewerUserFeeds
+import com.vodolazskiy.twitterclient.domain.interactors.feed.request.GetOlderUserFeeds
 import com.vodolazskiy.twitterclient.domain.interactors.login.OpenZoneInteractor
 import com.vodolazskiy.twitterclient.presentation.base.BasePresenterImpl
-import com.vodolazskiy.twitterclient.presentation.base.PaginationTool
+import com.vodolazskiy.twitterclient.presentation.base.adapter.PaginationTool
 import com.vodolazskiy.twitterclient.presentation.base.bind
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
@@ -51,12 +53,35 @@ class FeedPresenterImpl : BasePresenterImpl<FeedView>(), FeedPresenter {
         paginationSubscription?.dispose()
     }
 
-    override fun refreshFeed() {
+    override fun refreshFeed(firstFeedItem: UserFeed?) {
         onceViewAttached {
-            it.deleteAllItems()
-            resetOffset()
+            //            it.deleteAllItems()
+//            resetOffset()
+//            createPaginationTool(view = it, skipProgressForFirstLoading = true)
 
-            createPaginationTool(view = it, skipProgressForFirstLoading = true)
+            if (firstFeedItem == null) {
+                it.deleteAllItems()
+                resetOffset()
+                createPaginationTool(view = it, skipProgressForFirstLoading = true)
+            } else {
+                feedInteractor.getFeeds(GetNewerUserFeeds(LIMIT, firstFeedItem.id))
+                        .ioToMain()
+                        .subscribe({ feeds ->
+                            onceViewAttached {
+                                updateOffset(feeds)
+                                it.addItems(feeds)
+                                it.hideLoadingProgress()
+                                it.isEmptyViewVisible = !hasLoadedItems()
+                            }
+                        }, { throwable ->
+                            L.exception(throwable)
+                            onceViewAttached {
+                                it.hideLoadingProgress()
+                                it.isEmptyViewVisible = !hasLoadedItems()
+                                it.showLoadingError(throwable.localizedMessage)
+                            }
+                        })
+            }
         }
     }
 
@@ -91,11 +116,12 @@ class FeedPresenterImpl : BasePresenterImpl<FeedView>(), FeedPresenter {
                         it.hideLoadingProgress()
                         it.isEmptyViewVisible = !hasLoadedItems()
                     }
-                }, {
-                    L.exception(it)
+                }, { throwable ->
+                    L.exception(throwable)
                     onceViewAttached {
                         it.hideLoadingProgress()
                         it.isEmptyViewVisible = !hasLoadedItems()
+                        it.showLoadingError(throwable.localizedMessage)
                     }
                 }).bind(this)
     }
@@ -117,9 +143,10 @@ class FeedPresenterImpl : BasePresenterImpl<FeedView>(), FeedPresenter {
 
     private fun hasLoadedItems(): Boolean = lastFeedItem != null
 
-    //todo add pagination
     private fun getFeeds(offset: Int): Observable<List<UserFeed>> {
-        return feedInteractor.getFeeds()
+        val maxId: Long? = if (offset == 0) null
+        else lastFeedItem?.id
+        return feedInteractor.getFeeds(GetOlderUserFeeds(LIMIT, maxId))
     }
 
     private companion object {

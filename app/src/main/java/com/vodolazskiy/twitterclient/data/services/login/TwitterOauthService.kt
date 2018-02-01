@@ -8,7 +8,7 @@ import io.reactivex.Observable
 
 interface TwitterOauthService {
 
-    fun callActivityResult(requestCode: Int, resultCode: Int, data: Intent)
+    fun callActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
 
     fun callAuthorize(activity: Activity): Observable<LoginDataResponse>
 }

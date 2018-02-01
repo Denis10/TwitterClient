@@ -17,7 +17,7 @@ class TwitterOauthServiceImpl constructor(@DataConverterQualifier private val co
                                           private val handler: NetworkExceptionHandler) :
         TwitterAuthClient(), TwitterOauthService {
 
-    override fun callActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun callActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         onActivityResult(requestCode, resultCode, data)
     }
 

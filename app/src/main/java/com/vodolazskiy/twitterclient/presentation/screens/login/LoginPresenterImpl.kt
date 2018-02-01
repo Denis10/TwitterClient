@@ -19,7 +19,7 @@ class LoginPresenterImpl : BasePresenterImpl<LoginView>(), LoginPresenter {
         DI.component.inject(this)
     }
 
-    override fun sendActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun sendActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         openZoneInteractor.callActivityResult(requestCode, resultCode, data)
     }
 

@@ -7,7 +7,7 @@ import io.reactivex.Observable
 interface OpenZoneInteractor {
     fun login(activity: Activity): Observable<Unit>
 
-    fun callActivityResult(requestCode: Int, resultCode: Int, data: Intent)
+    fun callActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
 
     fun getUserName(): Observable<String>
 

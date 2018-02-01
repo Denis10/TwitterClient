@@ -10,6 +10,7 @@ import android.widget.Toast
 import com.vodolazskiy.twitterclient.R
 import com.vodolazskiy.twitterclient.domain.converter.models.UserFeed
 import com.vodolazskiy.twitterclient.presentation.base.BaseActivity
+import com.vodolazskiy.twitterclient.presentation.base.adapter.setRefreshLock
 import com.vodolazskiy.twitterclient.presentation.screens.feed.adapter.FeedAdapter
 import com.vodolazskiy.twitterclient.presentation.screens.login.LoginActivityManager
 import com.vodolazskiy.twitterclient.presentation.screens.post.PostActivityManager
@@ -52,6 +53,7 @@ class FeedActivity : BaseActivity<FeedView, FeedPresenter>(), FeedView {
         rvFeeds.adapter = adapter
 
         fabPost.setOnClickListener { postActivityManager.start(this@FeedActivity) }
+        swipeRefreshLayout.setRefreshLock { !adapter.isLoadingEnabled }
     }
 
     override fun showLoadingProgress() = run { adapter.isLoadingEnabled = true }
@@ -79,12 +81,17 @@ class FeedActivity : BaseActivity<FeedView, FeedPresenter>(), FeedView {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelableArrayList(STATE_FEED_ADAPTER, ArrayList(adapter.dataStorage.toList()))
+        outState.putParcelableArrayList(STATE_FEED_ADAPTER_KEY, ArrayList(adapter.dataStorage.toList()))
+        outState.putInt(POSITION_KEY, adapter.itemCount - 1)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
         if (savedInstanceState != null) {
-            adapter.set(savedInstanceState.getParcelableArrayList<Parcelable>(STATE_FEED_ADAPTER) as List<UserFeed>)
+            adapter.set(savedInstanceState.getParcelableArrayList<Parcelable>(STATE_FEED_ADAPTER_KEY) as List<UserFeed>)
+            val position = savedInstanceState.getInt(POSITION_KEY, 0)
+            if (position > 0 && position< adapter.itemCount){
+                rvFeeds.scrollToPosition(position)
+            }
         }
         super.onRestoreInstanceState(savedInstanceState)
     }
@@ -105,6 +112,7 @@ class FeedActivity : BaseActivity<FeedView, FeedPresenter>(), FeedView {
 
 
     companion object {
-        private const val STATE_FEED_ADAPTER = "STATE_FEED_ADAPTER"
+        private const val STATE_FEED_ADAPTER_KEY = "STATE_FEED_ADAPTER_KEY"
+        private const val POSITION_KEY = "POSITION_KEY"
     }
 }

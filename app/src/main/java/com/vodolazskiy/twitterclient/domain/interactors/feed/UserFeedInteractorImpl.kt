@@ -1,5 +1,6 @@
 package com.vodolazskiy.twitterclient.domain.interactors.feed
 
+import com.vodolazskiy.twitterclient.core.L
 import com.vodolazskiy.twitterclient.core.converter.ConvertersContext
 import com.vodolazskiy.twitterclient.core.di.annotation.DomainConverterQualifier
 import com.vodolazskiy.twitterclient.core.subscribeAsync
@@ -22,13 +23,18 @@ class UserFeedInteractorImpl @Inject constructor(private val twitterService: Twi
     override fun getFeeds(request: GetNewerUserFeedsRequest): Observable<List<UserFeed>> {
         return twitterService.getTimelineItems(converter.convert(request, GetUserFeedsDataRequest::class.java))
                 .flatMap { it -> feedRepository.insertAll(it).toObservable().subscribeAsync() }
-                .map { converter.convertCollection(it, UserFeed::class.java) }
+                .map(converter.convertCollection(UserFeed::class.java))
     }
 
     override fun getFeeds(request: GetOlderUserFeedsRequest): Observable<List<UserFeed>> {
-        return twitterService.getTimelineItems(converter.convert(request, GetUserFeedsDataRequest::class.java))
+        val dataRequest = converter.convert(request, GetUserFeedsDataRequest::class.java)
+        return twitterService.getTimelineItems(dataRequest)
                 .flatMap { it -> feedRepository.insertAll(it).toObservable().subscribeAsync() }
-                .map { converter.convertCollection(it, UserFeed::class.java) }
+                .onErrorResumeNext { it: Throwable ->
+                    L.exception(it)
+                    feedRepository.getFeeds(dataRequest).toObservable().subscribeAsync()
+                }
+                .map(converter.convertCollection(UserFeed::class.java))
     }
 
     override fun sendTweet(request: PostTweetRequest): Observable<Unit> {

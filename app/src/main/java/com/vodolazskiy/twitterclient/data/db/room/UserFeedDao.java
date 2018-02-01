@@ -34,4 +34,7 @@ public interface UserFeedDao {
 
     @Query("select count(*) from UserFeed")
     int getCount();
+
+    @Query("select * from UserFeed where id < :maxId order by id desc limit :limit")
+    Flowable<List<UserFeedDbEntity>> getBefore(@NonNull Long maxId, int limit);
 }

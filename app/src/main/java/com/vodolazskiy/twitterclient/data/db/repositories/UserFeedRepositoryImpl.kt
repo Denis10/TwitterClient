@@ -8,6 +8,7 @@ import com.vodolazskiy.twitterclient.core.di.annotation.DataConverterQualifier
 import com.vodolazskiy.twitterclient.data.db.room.UserFeedDao
 import com.vodolazskiy.twitterclient.data.db.room.UserFeedDbEntity
 import com.vodolazskiy.twitterclient.data.modelinterfaces.UserFeedEntity
+import com.vodolazskiy.twitterclient.data.services.userzone.request.GetUserFeedsDataRequest
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
@@ -43,4 +44,8 @@ internal class UserFeedRepositoryImpl constructor(private val dao: UserFeedDao,
     override fun removeAll(): Completable = CompletableFromCallable { dao.deleteAll() }
 
     override fun getCount(): Single<Int> = SingleFromCallable { dao.count }
+
+    override fun getFeeds(request: GetUserFeedsDataRequest): Flowable<List<UserFeedEntity>> {
+        return dao.getBefore(request.maxId?: Long.MAX_VALUE, request.limit).convert(converter)
+    }
 }

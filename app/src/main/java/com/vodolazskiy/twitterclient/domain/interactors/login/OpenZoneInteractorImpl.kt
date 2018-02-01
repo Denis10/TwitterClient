@@ -21,7 +21,7 @@ class OpenZoneInteractorImpl @Inject constructor(private val storage: PrefsStora
                 .map { Unit }
     }
 
-    override fun callActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun callActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         oauthService.callActivityResult(requestCode, resultCode, data)
     }
 

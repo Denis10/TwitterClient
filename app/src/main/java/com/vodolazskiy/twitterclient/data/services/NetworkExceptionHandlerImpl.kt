@@ -24,8 +24,8 @@ class NetworkExceptionHandlerImpl @Inject constructor(private val appContext: Co
         return when {
             isNetworkDisabledException(throwable) -> NetworkDisabledException(appContext.getString(R.string.no_internet_try_later), throwable)
             throwable is TwitterApiException -> return when {
-                isServerError(throwable.errorCode) -> ServerException(appContext.getString(R.string.server_error), throwable)
-                TOO_MANY_REQUESTS == throwable.errorCode -> TooManyRequestsException(appContext.getString(R.string.too_many_requests), throwable)
+                isServerError(throwable.statusCode) -> ServerException(appContext.getString(R.string.server_error), throwable)
+                TOO_MANY_REQUESTS == throwable.statusCode -> TooManyRequestsException(appContext.getString(R.string.too_many_requests), throwable)
                 else -> NetworkCommonException(getMessage(throwable), throwable)
             }
             else -> NetworkCommonException(getMessage(throwable), throwable)

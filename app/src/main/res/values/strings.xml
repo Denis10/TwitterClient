@@ -7,4 +7,5 @@
     <string name="server_error">Server error</string>
     <string name="too_many_requests">Too many requests</string>
     <string name="twitter_exception">Twitter exception</string>
+    <string name="logout">Logout</string>
 </resources>

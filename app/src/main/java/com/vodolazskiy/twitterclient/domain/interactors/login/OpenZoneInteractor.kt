@@ -10,4 +10,8 @@ interface OpenZoneInteractor {
     fun callActivityResult(requestCode: Int, resultCode: Int, data: Intent)
 
     fun getUserName(): Observable<String>
+
+    fun logout(): Observable<Unit>
+
+    fun isLoggedIn(): Observable<Boolean>
 }

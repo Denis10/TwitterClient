@@ -15,8 +15,10 @@
         android:theme="@style/AppTheme">
         <activity android:name=".presentation.MainActivity" />
 
-        <activity android:name=".presentation.screens.splash.SplashActivity" />
-        <activity android:name=".presentation.screens.login.LoginActivity">
+        <activity android:name=".presentation.screens.login.LoginActivity" />
+        <activity android:name=".presentation.screens.splash.SplashActivity"
+            android:theme="@style/FullScreenTheme"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

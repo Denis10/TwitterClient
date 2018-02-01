@@ -5,4 +5,5 @@ import com.vodolazskiy.twitterclient.presentation.base.BasePresenter
 
 interface FeedPresenter : BasePresenter<FeedView> {
     fun refreshFeed(firstFeedItem: UserFeed?)
+    fun logout()
 }

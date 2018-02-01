@@ -19,4 +19,6 @@ interface FeedView: BaseView {
     fun setScreenName(name: String)
 
     fun showLoadingError(error: String)
+
+    fun logout()
 }

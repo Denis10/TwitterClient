@@ -2,6 +2,6 @@ package com.vodolazskiy.twitterclient.data
 
 import io.reactivex.Completable
 
-interface PersistenceManager {
+interface LogoutFacade {
     fun deleteAll(): Completable
 }

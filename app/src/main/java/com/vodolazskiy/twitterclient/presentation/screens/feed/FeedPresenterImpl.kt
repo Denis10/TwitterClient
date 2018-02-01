@@ -55,10 +55,6 @@ class FeedPresenterImpl : BasePresenterImpl<FeedView>(), FeedPresenter {
 
     override fun refreshFeed(firstFeedItem: UserFeed?) {
         onceViewAttached {
-            //            it.deleteAllItems()
-//            resetOffset()
-//            createPaginationTool(view = it, skipProgressForFirstLoading = true)
-
             if (firstFeedItem == null) {
                 it.deleteAllItems()
                 resetOffset()
@@ -147,6 +143,13 @@ class FeedPresenterImpl : BasePresenterImpl<FeedView>(), FeedPresenter {
         val maxId: Long? = if (offset == 0) null
         else lastFeedItem?.id
         return feedInteractor.getFeeds(GetOlderUserFeeds(LIMIT, maxId))
+    }
+
+    override fun logout() {
+        openZoneInteractor.logout()
+                .ioToMain()
+                .subscribe({ onceViewAttached { it.logout() } }, { L.e(it) })
+                .bind(this)
     }
 
     private companion object {

@@ -21,16 +21,15 @@ class NetworkExceptionHandlerImpl @Inject constructor(private val appContext: Co
         if (throwable is NetworkException) { //error is already handled
             return throwable
         }
-        if (throwable is TwitterApiException) {
-            return if (isServerError(throwable.errorCode)){
-                ServerException(appContext.getString(R.string.server_error), throwable)
-            } else {
-                TooManyRequestsException(appContext.getString(R.string.too_many_requests), throwable)
+        return when {
+            isNetworkDisabledException(throwable) -> NetworkDisabledException(appContext.getString(R.string.no_internet_try_later), throwable)
+            throwable is TwitterApiException -> return when {
+                isServerError(throwable.errorCode) -> ServerException(appContext.getString(R.string.server_error), throwable)
+                TOO_MANY_REQUESTS == throwable.errorCode -> TooManyRequestsException(appContext.getString(R.string.too_many_requests), throwable)
+                else -> NetworkCommonException(getMessage(throwable), throwable)
             }
+            else -> NetworkCommonException(getMessage(throwable), throwable)
         }
-        return if (isNetworkDisabledException(throwable)) {
-            NetworkDisabledException(appContext.getString(R.string.no_internet_try_later), throwable)
-        } else NetworkCommonException(getMessage(throwable), throwable)
     }
 
     private fun getMessage(throwable: Throwable): String {
@@ -53,7 +52,7 @@ class NetworkExceptionHandlerImpl @Inject constructor(private val appContext: Co
         return throwable is SocketTimeoutException || throwable is UnknownHostException
     }
 
-    private fun isServerError(code: Int ): Boolean {
+    private fun isServerError(code: Int): Boolean {
         return when (code) {
             SERVER_ERROR_500, SERVER_ERROR_501, SERVER_ERROR_502, SERVER_ERROR_503, SERVER_ERROR_504, SERVER_ERROR_509 -> true
             else -> false
@@ -67,5 +66,6 @@ class NetworkExceptionHandlerImpl @Inject constructor(private val appContext: Co
         private const val SERVER_ERROR_503 = 503
         private const val SERVER_ERROR_504 = 504
         private const val SERVER_ERROR_509 = 509
+        private const val TOO_MANY_REQUESTS = 429
     }
 }

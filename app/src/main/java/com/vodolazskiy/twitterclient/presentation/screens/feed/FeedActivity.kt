@@ -12,6 +12,7 @@ import com.vodolazskiy.twitterclient.domain.converter.models.UserFeed
 import com.vodolazskiy.twitterclient.presentation.base.BaseActivity
 import com.vodolazskiy.twitterclient.presentation.screens.feed.adapter.FeedAdapter
 import com.vodolazskiy.twitterclient.presentation.screens.login.LoginActivityManager
+import com.vodolazskiy.twitterclient.presentation.screens.post.PostActivityManager
 import kotlinx.android.synthetic.main.activity_feed.*
 import java.util.*
 import javax.inject.Inject
@@ -25,6 +26,9 @@ class FeedActivity : BaseActivity<FeedView, FeedPresenter>(), FeedView {
     @Suppress("ProtectedInFinal")
     @Inject
     protected lateinit var loginActivityManager: LoginActivityManager
+    @Suppress("ProtectedInFinal")
+    @Inject
+    protected lateinit var postActivityManager: PostActivityManager
 
     override val emptyListCount: Int get() = adapter.emptyItemCount
     override var isEmptyViewVisible: Boolean = false
@@ -46,6 +50,8 @@ class FeedActivity : BaseActivity<FeedView, FeedPresenter>(), FeedView {
             presenter.refreshFeed(item)
         }
         rvFeeds.adapter = adapter
+
+        fabPost.setOnClickListener { postActivityManager.start(this@FeedActivity) }
     }
 
     override fun showLoadingProgress() = run { adapter.isLoadingEnabled = true }
@@ -67,7 +73,7 @@ class FeedActivity : BaseActivity<FeedView, FeedPresenter>(), FeedView {
         Toast.makeText(applicationContext, error, Toast.LENGTH_SHORT).show()
     }
 
-    override fun logout(){
+    override fun logout() {
         loginActivityManager.startFromLogout(this)
     }
 

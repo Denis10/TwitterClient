@@ -15,10 +15,7 @@ interface FeedView: BaseView {
 
     fun addItems(items: List<UserFeed>)
     fun deleteAllItems()
-
     fun setScreenName(name: String)
-
     fun showLoadingError(error: String)
-
     fun logout()
 }

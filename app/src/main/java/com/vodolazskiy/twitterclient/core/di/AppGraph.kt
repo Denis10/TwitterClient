@@ -5,6 +5,7 @@ import com.vodolazskiy.twitterclient.app.BuildConfigInfoProvider
 import com.vodolazskiy.twitterclient.presentation.base.adapter.PaginationTool
 import com.vodolazskiy.twitterclient.presentation.screens.feed.FeedPresenterImpl
 import com.vodolazskiy.twitterclient.presentation.screens.login.LoginPresenterImpl
+import com.vodolazskiy.twitterclient.presentation.screens.post.PostPresenterImpl
 import com.vodolazskiy.twitterclient.presentation.screens.splash.SplashPresenterImpl
 
 interface AppGraph {
@@ -16,4 +17,5 @@ interface AppGraph {
     fun inject(injectItem: FeedPresenterImpl)
     fun inject(injectionWrapper: PaginationTool.InjectionWrapper)
     fun inject(splashPresenterImpl: SplashPresenterImpl)
+    fun inject(postPresenterImpl: PostPresenterImpl)
 }

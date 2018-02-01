@@ -97,6 +97,7 @@ dependencies {
     implementation deps.support.annotations
     implementation deps.support.recyclerview
     implementation deps.support.constraint
+    implementation deps.support.design
 
     //kotlin
     implementation deps.kotlin.stdlib

@@ -5,10 +5,12 @@ import com.vodolazskiy.twitterclient.core.di.annotation.DomainConverterQualifier
 import com.vodolazskiy.twitterclient.core.subscribeAsync
 import com.vodolazskiy.twitterclient.data.db.repositories.UserFeedRepository
 import com.vodolazskiy.twitterclient.data.services.userzone.TwitterService
-import com.vodolazskiy.twitterclient.data.services.userzone.request.GetUserFeeds
+import com.vodolazskiy.twitterclient.data.services.userzone.request.GetUserFeedsDataRequest
+import com.vodolazskiy.twitterclient.data.services.userzone.request.PostTweetDataRequest
 import com.vodolazskiy.twitterclient.domain.converter.models.UserFeed
-import com.vodolazskiy.twitterclient.domain.interactors.feed.request.GetNewerUserFeeds
-import com.vodolazskiy.twitterclient.domain.interactors.feed.request.GetOlderUserFeeds
+import com.vodolazskiy.twitterclient.domain.interactors.feed.request.GetNewerUserFeedsRequest
+import com.vodolazskiy.twitterclient.domain.interactors.feed.request.GetOlderUserFeedsRequest
+import com.vodolazskiy.twitterclient.domain.interactors.feed.request.PostTweetRequest
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -17,15 +19,21 @@ class UserFeedInteractorImpl @Inject constructor(private val twitterService: Twi
                                                  @DomainConverterQualifier private val converter: ConvertersContext) :
         UserFeedInteractor {
 
-    override fun getFeeds(request: GetNewerUserFeeds): Observable<List<UserFeed>> {
-        return twitterService.getTimelineItems(converter.convert(request, GetUserFeeds::class.java))
+    override fun getFeeds(request: GetNewerUserFeedsRequest): Observable<List<UserFeed>> {
+        return twitterService.getTimelineItems(converter.convert(request, GetUserFeedsDataRequest::class.java))
                 .flatMap { it -> feedRepository.insertAll(it).toObservable().subscribeAsync() }
                 .map { converter.convertCollection(it, UserFeed::class.java) }
     }
 
-    override fun getFeeds(request: GetOlderUserFeeds): Observable<List<UserFeed>> {
-        return twitterService.getTimelineItems(converter.convert(request, GetUserFeeds::class.java))
+    override fun getFeeds(request: GetOlderUserFeedsRequest): Observable<List<UserFeed>> {
+        return twitterService.getTimelineItems(converter.convert(request, GetUserFeedsDataRequest::class.java))
                 .flatMap { it -> feedRepository.insertAll(it).toObservable().subscribeAsync() }
                 .map { converter.convertCollection(it, UserFeed::class.java) }
+    }
+
+    override fun sendTweet(request: PostTweetRequest): Observable<Unit> {
+        return twitterService.sendTweet(converter.convert(request, PostTweetDataRequest::class.java))
+                .flatMap { it -> feedRepository.insert(it).toObservable().subscribeAsync() }
+                .map { Unit }
     }
 }

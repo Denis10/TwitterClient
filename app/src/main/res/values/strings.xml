@@ -8,4 +8,7 @@
     <string name="too_many_requests">Too many requests</string>
     <string name="twitter_exception">Twitter exception</string>
     <string name="logout">Logout</string>
+    <string name="tweet">Tweet</string>
+    <string name="post">Post</string>
+    <string name="post_tweet">Post tweet</string>
 </resources>

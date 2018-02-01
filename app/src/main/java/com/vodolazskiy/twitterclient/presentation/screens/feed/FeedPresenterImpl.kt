@@ -5,8 +5,8 @@ import com.vodolazskiy.twitterclient.core.di.DI
 import com.vodolazskiy.twitterclient.core.ioToMain
 import com.vodolazskiy.twitterclient.domain.converter.models.UserFeed
 import com.vodolazskiy.twitterclient.domain.interactors.feed.UserFeedInteractor
-import com.vodolazskiy.twitterclient.domain.interactors.feed.request.GetNewerUserFeeds
-import com.vodolazskiy.twitterclient.domain.interactors.feed.request.GetOlderUserFeeds
+import com.vodolazskiy.twitterclient.domain.interactors.feed.request.GetNewerUserFeedsRequest
+import com.vodolazskiy.twitterclient.domain.interactors.feed.request.GetOlderUserFeedsRequest
 import com.vodolazskiy.twitterclient.domain.interactors.login.OpenZoneInteractor
 import com.vodolazskiy.twitterclient.presentation.base.BasePresenterImpl
 import com.vodolazskiy.twitterclient.presentation.base.adapter.PaginationTool
@@ -60,7 +60,7 @@ class FeedPresenterImpl : BasePresenterImpl<FeedView>(), FeedPresenter {
                 resetOffset()
                 createPaginationTool(view = it, skipProgressForFirstLoading = true)
             } else {
-                feedInteractor.getFeeds(GetNewerUserFeeds(LIMIT, firstFeedItem.id))
+                feedInteractor.getFeeds(GetNewerUserFeedsRequest(LIMIT, firstFeedItem.id))
                         .ioToMain()
                         .subscribe({ feeds ->
                             onceViewAttached {
@@ -142,7 +142,7 @@ class FeedPresenterImpl : BasePresenterImpl<FeedView>(), FeedPresenter {
     private fun getFeeds(offset: Int): Observable<List<UserFeed>> {
         val maxId: Long? = if (offset == 0) null
         else lastFeedItem?.id
-        return feedInteractor.getFeeds(GetOlderUserFeeds(LIMIT, maxId))
+        return feedInteractor.getFeeds(GetOlderUserFeedsRequest(LIMIT, maxId))
     }
 
     override fun logout() {

@@ -6,7 +6,8 @@ import com.vodolazskiy.twitterclient.core.converter.ConvertersContext
 import com.vodolazskiy.twitterclient.core.di.annotation.DataConverterQualifier
 import com.vodolazskiy.twitterclient.data.modelinterfaces.UserFeedEntity
 import com.vodolazskiy.twitterclient.data.services.NetworkExceptionHandler
-import com.vodolazskiy.twitterclient.data.services.userzone.request.GetUserFeeds
+import com.vodolazskiy.twitterclient.data.services.userzone.request.GetUserFeedsDataRequest
+import com.vodolazskiy.twitterclient.data.services.userzone.request.PostTweetDataRequest
 import io.reactivex.Observable
 
 internal class TwitterServiceImpl constructor(session: TwitterSession, @DataConverterQualifier private val converter: ConvertersContext,
@@ -14,7 +15,7 @@ internal class TwitterServiceImpl constructor(session: TwitterSession, @DataConv
         TwitterApiClient(session),
         TwitterService {
 
-    override fun getTimelineItems(request: GetUserFeeds): Observable<List<UserFeedEntity>> {
+    override fun getTimelineItems(request: GetUserFeedsDataRequest): Observable<List<UserFeedEntity>> {
         return Observable.create<List<UserFeedEntity>> { subscriber ->
             val callback = object : Callback<List<Tweet>>() {
                 override fun success(result: Result<List<Tweet>>) {
@@ -31,11 +32,11 @@ internal class TwitterServiceImpl constructor(session: TwitterSession, @DataConv
         }
     }
 
-    override fun sendTweet(tweetText: String): Observable<Boolean> {
+    override fun sendTweet(request: PostTweetDataRequest): Observable<UserFeedEntity> {
         return Observable.create { subscriber ->
             val callback = object : Callback<Tweet>() {
                 override fun success(result: Result<Tweet>) {
-                    subscriber.onNext(true)
+                    subscriber.onNext(converter.convert(result.data, UserFeedEntity::class.java))
                     subscriber.onComplete()
                 }
 
@@ -43,7 +44,7 @@ internal class TwitterServiceImpl constructor(session: TwitterSession, @DataConv
                     subscriber.onError(handler.handle(e))
                 }
             }
-            statusesService.update(tweetText, null, null, null, null, null, null, null, null).enqueue(callback)
+            statusesService.update(request.text, null, null, null, null, null, null, null, null).enqueue(callback)
         }
     }
 }

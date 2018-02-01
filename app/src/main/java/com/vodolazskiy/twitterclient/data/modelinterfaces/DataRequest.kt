@@ -1,0 +1,3 @@
+package com.vodolazskiy.twitterclient.data.modelinterfaces
+
+interface DataRequest

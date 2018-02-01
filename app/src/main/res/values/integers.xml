@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="tw_max_tweet_length_length">256</integer>
+</resources>

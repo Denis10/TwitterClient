@@ -9,4 +9,6 @@
     <color name="tw_text_main_50">#7F303237</color>
     <color name="tw_light_red">#f64c68</color>
     <color name="tw_pastel_gray">#CBCBCD</color>
+    <color name="tw_blue">#4186C8</color>
+    <color name="tw_blue_50">#7F4186C8</color>
 </resources>

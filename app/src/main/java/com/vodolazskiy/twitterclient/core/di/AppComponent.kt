@@ -17,7 +17,8 @@ import javax.inject.Singleton
     InteractorModule::class,
     ScreensProviderModule::class,
     EventBusModule::class,
-    NetworkModule::class
+    NetworkModule::class,
+    ImageModule::class
 ])
 interface AppComponent : AppGraph {
 

@@ -3,4 +3,6 @@
     <dimen name="tw_text_size_12">12sp</dimen>
     <dimen name="tw_text_size_16">16sp</dimen>
     <dimen name="tw_padding_small">8dp</dimen>
+    <dimen name="tw_margin_small">8dp</dimen>
+    <dimen name="tw_margin_4">4dp</dimen>
 </resources>

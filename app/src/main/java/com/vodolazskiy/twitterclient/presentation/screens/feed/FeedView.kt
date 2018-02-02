@@ -17,5 +17,6 @@ interface FeedView : BaseView {
     fun deleteAllItems()
     fun setScreenName(name: String)
     fun showLoadingError(error: String)
+    fun scrollToTop()
     fun logout()
 }

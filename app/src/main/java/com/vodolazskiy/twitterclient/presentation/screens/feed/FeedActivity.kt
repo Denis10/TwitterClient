@@ -3,6 +3,7 @@ package com.vodolazskiy.twitterclient.presentation.screens.feed
 import android.os.Bundle
 import android.os.Parcelable
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -10,6 +11,7 @@ import android.widget.Toast
 import com.vodolazskiy.twitterclient.R
 import com.vodolazskiy.twitterclient.domain.converter.models.UserFeed
 import com.vodolazskiy.twitterclient.presentation.base.BaseActivity
+import com.vodolazskiy.twitterclient.presentation.base.adapter.getFirstVisibleItemPosition
 import com.vodolazskiy.twitterclient.presentation.base.adapter.setRefreshLock
 import com.vodolazskiy.twitterclient.presentation.screens.feed.adapter.FeedAdapter
 import com.vodolazskiy.twitterclient.presentation.screens.login.LoginActivityManager
@@ -45,13 +47,16 @@ class FeedActivity : BaseActivity<FeedView, FeedPresenter>(), FeedView, PostCall
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        adapter.setHasStableIds(true)
         setContentView(R.layout.activity_feed)
         swipeRefreshLayout.setOnRefreshListener {
             val item: UserFeed? = if (adapter.dataStorage.size == 0) null else adapter.dataStorage.get(0)
             presenter.refreshFeed(item)
         }
         rvFeeds.adapter = adapter
+        val columns = resources.getInteger(R.integer.tw_feed_grid_columns)
+        rvFeeds.layoutManager = StaggeredGridLayoutManager(columns, StaggeredGridLayoutManager.VERTICAL)
+
 
         fabPost.setOnClickListener { postScreenManager.start(supportFragmentManager) }
         swipeRefreshLayout.setRefreshLock { !adapter.isLoadingEnabled }
@@ -76,6 +81,12 @@ class FeedActivity : BaseActivity<FeedView, FeedPresenter>(), FeedView, PostCall
         Toast.makeText(applicationContext, error, Toast.LENGTH_SHORT).show()
     }
 
+    override fun scrollToTop() {
+        rvFeeds.post {
+            rvFeeds.scrollToPosition(0)
+        }
+    }
+
     override fun logout() {
         loginActivityManager.startFromLogout(this)
     }
@@ -83,15 +94,17 @@ class FeedActivity : BaseActivity<FeedView, FeedPresenter>(), FeedView, PostCall
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelableArrayList(STATE_FEED_ADAPTER_KEY, ArrayList(adapter.dataStorage.toList()))
-        outState.putInt(POSITION_KEY, adapter.itemCount - 1)
+        outState.putInt(POSITION_KEY, rvFeeds.getFirstVisibleItemPosition())
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
         if (savedInstanceState != null) {
             adapter.set(savedInstanceState.getParcelableArrayList<Parcelable>(STATE_FEED_ADAPTER_KEY) as List<UserFeed>)
             val position = savedInstanceState.getInt(POSITION_KEY, 0)
-            if (position > 0 && position < adapter.itemCount) {
-                rvFeeds.scrollToPosition(position)
+            rvFeeds.post {
+                if (position > 0 && position < adapter.itemCount) {
+                    rvFeeds.scrollToPosition(position)
+                }
             }
         }
         super.onRestoreInstanceState(savedInstanceState)

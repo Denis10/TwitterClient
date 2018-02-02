@@ -11,4 +11,5 @@
     <string name="tweet">Tweet</string>
     <string name="post">Post</string>
     <string name="post_tweet">Post tweet</string>
+    <string name="empty_field">Empty field</string>
 </resources>

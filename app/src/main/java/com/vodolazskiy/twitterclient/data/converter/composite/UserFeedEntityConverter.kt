@@ -18,7 +18,13 @@ class UserFeedEntityConverter : CompositeConverter {
 
     private fun restToDb(inItem: Tweet): UserFeedDbEntity {
         val date = dateFormat.parse(inItem.createdAt)
-        //todo add fields
-        return UserFeedDbEntity(inItem.id, date, inItem.text)
+        var mediaUrl: String? = null
+        inItem.extendedEntities?.media?.let {
+            if (it.isNotEmpty()){
+                mediaUrl = it.filter { !it.mediaUrlHttps.isNullOrEmpty() }.map { it.mediaUrlHttps!! }.first()
+            }
+        }
+
+        return UserFeedDbEntity(inItem.id, date, inItem.text, mediaUrl)
     }
 }

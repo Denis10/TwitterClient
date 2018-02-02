@@ -16,12 +16,22 @@ class FeedAdapter @Inject constructor() : BaseSortedPaginationRVAdapter<UserFeed
         return FeedHolder.create(parent)
     }
 
+    override fun getItemId(position: Int): Long {
+        val pos = convertAdapterPositionToDataIndex(position)
+        return if (pos == -1) {
+            position.toLong()
+        } else {
+            dataStorage.get(pos).id
+        }
+    }
+
     init {
         //todo add fields
         itemsTheSameComparator = { oldItem, newItem ->
             oldItem.id == newItem.id
                     && oldItem.createdAt == newItem.createdAt
                     && oldItem.text == newItem.text
+                    && oldItem.mediaUrlHttps == newItem.mediaUrlHttps
         }
 
         itemsTheSameComparator = { oldItem, newItem ->

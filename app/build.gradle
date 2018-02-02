@@ -98,6 +98,7 @@ dependencies {
     implementation deps.support.recyclerview
     implementation deps.support.constraint
     implementation deps.support.design
+    implementation deps.support.cardview
 
     //kotlin
     implementation deps.kotlin.stdlib
@@ -119,11 +120,8 @@ dependencies {
     kapt deps.database.roomAnnotationProcessor
 
     //glide
-//    implementation deps.glide.glide
-//    kapt deps.glide.glideAnnotation
-//    implementation deps.glide.glideTransformers
-//    implementation deps.glide.glideOkHttp
-//    kapt deps.glide.glideCompiler
+    implementation deps.glide.glide
+    kapt deps.glide.glideCompiler
 
     //twitter
     implementation deps.twitter.core

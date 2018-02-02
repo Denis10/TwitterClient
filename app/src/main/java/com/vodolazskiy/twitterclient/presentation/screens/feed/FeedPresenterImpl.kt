@@ -46,7 +46,7 @@ class FeedPresenterImpl : BasePresenterImpl<FeedView>(), FeedPresenter {
                 .subscribe({
                     selector.incrementAndGet()
                     firstFeedItem?.let {
-                        addItemsToTop(feedItem = it)
+                        addItemsToTop(feedItem = it, scrollToTop = false)
                     }
                 }, { L.exception(it) })
                 .bind(this)
@@ -79,12 +79,12 @@ class FeedPresenterImpl : BasePresenterImpl<FeedView>(), FeedPresenter {
                 resetOffset()
                 createPaginationTool(view = it, skipProgressForFirstLoading = true)
             } else {
-                addItemsToTop(firstItem)
+                addItemsToTop(feedItem = firstItem, scrollToTop = true)
             }
         }
     }
 
-    private fun addItemsToTop(feedItem: UserFeed) {
+    private fun addItemsToTop(feedItem: UserFeed, scrollToTop: Boolean) {
         feedInteractor.getFeeds(GetNewerUserFeedsRequest(LIMIT, feedItem.id))
                 .ioToMain()
                 .subscribe({ feeds ->
@@ -93,6 +93,9 @@ class FeedPresenterImpl : BasePresenterImpl<FeedView>(), FeedPresenter {
                         it.addItems(feeds)
                         it.hideLoadingProgress()
                         it.isEmptyViewVisible = !hasLoadedItems()
+                        if (scrollToTop){
+                            it.scrollToTop()
+                        }
                     }
                 }, { throwable ->
                     L.exception(throwable)

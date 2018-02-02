@@ -20,8 +20,7 @@ class UserFeedConverter : CompositeConverter {
     }
 
     private fun dataToDomain(inItem: UserFeedEntity): UserFeedItem {
-        //todo add fields
-        return UserFeedItem(inItem.id, inItem.createdAt, inItem.text)
+        return UserFeedItem(inItem.id, inItem.createdAt, inItem.text, inItem.mediaUrlHttps)
     }
 
     private fun olderToDataRequest(inItem: GetOlderUserFeedsRequest): GetUserFeedsDataRequest {

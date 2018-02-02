@@ -14,7 +14,9 @@ data class UserFeedDbEntity(
         @ColumnInfo(name = "createdAt")
         override val createdAt: Date,
         @ColumnInfo(name = "text")
-        override val text: String
+        override val text: String,
+        @ColumnInfo(name = "photoUrl")
+        override val mediaUrlHttps: String?
 ) : UserFeedEntity {
 
     companion object {

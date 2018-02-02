@@ -2,6 +2,8 @@ package com.vodolazskiy.twitterclient.presentation.screens.post
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +15,21 @@ import kotlinx.android.synthetic.main.screen_post.*
 
 class PostDialog : BaseDialogFragment<PostView, PostPresenter>(), PostView {
     private lateinit var callback: PostCallback
+
+    private val watcher = object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {
+
+        }
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+           tilTweet.error = ""
+        }
+    }
+
 
     override fun createPresenter(): PostPresenter = PostPresenterImpl()
 
@@ -30,10 +47,14 @@ class PostDialog : BaseDialogFragment<PostView, PostPresenter>(), PostView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        edtTweet.addTextChangedListener(watcher)
+
         btnPost.setOnClickListener {
             val text = edtTweet.text.toString()
             if (text.isNotBlank()) {
                 presenter.postTweet(edtTweet.text.toString())
+            } else {
+                tilTweet.error = getString(R.string.empty_field)
             }
         }
     }
@@ -59,6 +80,11 @@ class PostDialog : BaseDialogFragment<PostView, PostPresenter>(), PostView {
 
     override fun hideProgress() {
         postProgress.visibility = View.GONE
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        edtTweet.removeTextChangedListener(watcher)
     }
 
     companion object Factory {

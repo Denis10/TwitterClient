@@ -8,4 +8,5 @@ interface UserFeed : Parcelable {
     val id: Long
     val createdAt: Date
     val text: String
+    val mediaUrlHttps: String?
 }

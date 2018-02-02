@@ -13,7 +13,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:indeterminate="true"
-        android:indeterminateDrawable="@drawable/gd_progressbar_loading"
+        android:indeterminateDrawable="@drawable/tw_progressbar_loading"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

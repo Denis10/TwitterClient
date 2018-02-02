@@ -2,6 +2,7 @@ package com.vodolazskiy.twitterclient.domain.interactors.login
 
 import android.app.Activity
 import android.content.Intent
+import io.reactivex.Completable
 import io.reactivex.Observable
 
 interface OpenZoneInteractor {
@@ -11,7 +12,7 @@ interface OpenZoneInteractor {
 
     fun getUserName(): Observable<String>
 
-    fun logout(): Observable<Unit>
+    fun logout(): Completable
 
     fun isLoggedIn(): Observable<Boolean>
 }

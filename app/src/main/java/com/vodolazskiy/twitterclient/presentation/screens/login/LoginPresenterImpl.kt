@@ -28,7 +28,7 @@ class LoginPresenterImpl : BasePresenterImpl<LoginView>(), LoginPresenter {
                 .ioToMain()
                 .subscribe({
                     onceViewAttached { it.openFeedScreen() }
-                }, { L .exception(it) })
+                }, { L.exception(it) })
                 .bind(this)
     }
 }

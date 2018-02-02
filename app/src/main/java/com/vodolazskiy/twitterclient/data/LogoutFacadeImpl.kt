@@ -4,6 +4,7 @@ import com.twitter.sdk.android.core.TwitterCore
 import com.vodolazskiy.twitterclient.data.db.repositories.UserFeedRepository
 import com.vodolazskiy.twitterclient.data.prefs.PrefsStorage
 import io.reactivex.Completable
+import io.reactivex.internal.operators.completable.CompletableFromCallable
 import javax.inject.Inject
 
 @Suppress("ProtectedInFinal")
@@ -13,6 +14,9 @@ internal class LogoutFacadeImpl constructor(private val userFeed: UserFeedReposi
     override fun deleteAll(): Completable {
         return userFeed.removeAll()
                 .andThen(prefs.clear())
-                .andThen { TwitterCore.getInstance().sessionManager.clearActiveSession() }
+                .andThen {
+                    TwitterCore.getInstance().sessionManager.clearActiveSession()
+                    it.onComplete()
+                }
     }
 }

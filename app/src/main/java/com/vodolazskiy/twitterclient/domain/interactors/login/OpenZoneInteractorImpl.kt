@@ -5,6 +5,7 @@ import android.content.Intent
 import com.vodolazskiy.twitterclient.data.LogoutFacade
 import com.vodolazskiy.twitterclient.data.prefs.PrefsStorage
 import com.vodolazskiy.twitterclient.data.services.login.TwitterOauthService
+import io.reactivex.Completable
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -29,9 +30,8 @@ class OpenZoneInteractorImpl @Inject constructor(private val storage: PrefsStora
     override fun getUserName(): Observable<String> =
             Observable.fromCallable { storage.userName ?: "" }
 
-    override fun logout(): Observable<Unit> =
-            Observable.fromCallable { logoutFacade.deleteAll() }
-                    .map { Unit }
+    override fun logout(): Completable =
+            logoutFacade.deleteAll()
 
     override fun isLoggedIn(): Observable<Boolean> =
             Observable.fromCallable { !storage.twitterToken.isNullOrBlank() }

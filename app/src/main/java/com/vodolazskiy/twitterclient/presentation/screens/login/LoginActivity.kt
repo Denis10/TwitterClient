@@ -15,13 +15,14 @@ class LoginActivity : BaseActivity<LoginView, LoginPresenter>(), LoginView {
     @Inject
     protected lateinit var feedActivityManager: FeedActivityManager
 
-    override fun createPresenter(): LoginPresenter = LoginPresenterImpl()
+    override fun createPresenter(): LoginPresenter {
+        return LoginPresenterImpl()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_login)
-
         btnTwitterLogin.setOnClickListener { presenter.login(activity = this) }
     }
 

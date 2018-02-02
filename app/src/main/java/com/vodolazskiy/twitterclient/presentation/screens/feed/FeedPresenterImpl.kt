@@ -30,8 +30,6 @@ class FeedPresenterImpl : BasePresenterImpl<FeedView>(), FeedPresenter {
     @Suppress("ProtectedInFinal")
     @Inject
     protected lateinit var bus: EventBusProvider
-    @Inject
-    lateinit var userFeed: UserFeedRepository
 
     private var paginationSubscription: Disposable? = null
     private val selector = AtomicInteger(1)
@@ -180,14 +178,13 @@ class FeedPresenterImpl : BasePresenterImpl<FeedView>(), FeedPresenter {
     }
 
     override fun logout() {
-        //todo remove user feed
         openZoneInteractor.logout()
-                .flatMap { userFeed.getCount().toObservable() }
                 .ioToMain()
                 .subscribe({
-                    L.d("FFF", "count = " + it)
                     onceViewAttached { it.logout() }
-                }, { L.e(it) })
+                }, {
+                    L.e(it)
+                })
                 .bind(this)
     }
 

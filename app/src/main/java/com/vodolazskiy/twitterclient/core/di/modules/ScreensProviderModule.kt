@@ -4,14 +4,14 @@ import com.vodolazskiy.twitterclient.presentation.screens.feed.FeedActivityManag
 import com.vodolazskiy.twitterclient.presentation.screens.feed.FeedActivityManagerImpl
 import com.vodolazskiy.twitterclient.presentation.screens.login.LoginActivityManager
 import com.vodolazskiy.twitterclient.presentation.screens.login.LoginActivityManagerImpl
-import com.vodolazskiy.twitterclient.presentation.screens.post.PostActivityManager
-import com.vodolazskiy.twitterclient.presentation.screens.post.PostActivityManagerImpl
+import com.vodolazskiy.twitterclient.presentation.screens.post.PostScreenManager
+import com.vodolazskiy.twitterclient.presentation.screens.post.PostScreenManagerImpl
 import dagger.Binds
 import dagger.Module
 import javax.inject.Singleton
 
 @Module
-interface ActivityProviderModule {
+interface ScreensProviderModule {
 
     @Singleton
     @Binds
@@ -23,6 +23,6 @@ interface ActivityProviderModule {
 
     @Singleton
     @Binds
-    fun providePostActivityManager(manager: PostActivityManagerImpl): PostActivityManager
+    fun providePostScreenManager(manager: PostScreenManagerImpl): PostScreenManager
 
 }

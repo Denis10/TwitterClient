@@ -14,9 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".presentation.screens.splash.SplashActivity"
-            android:theme="@style/FullScreenTheme"
-            >
+        <activity
+            android:name=".presentation.screens.splash.SplashActivity"
+            android:theme="@style/FullScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,7 +25,6 @@
         </activity>
 
         <activity android:name=".presentation.screens.login.LoginActivity" />
-        <activity android:name=".presentation.screens.post.PostActivity" />
         <activity android:name=".presentation.screens.feed.FeedActivity" />
 
     </application>

@@ -5,9 +5,9 @@ import android.content.Context
 import com.vodolazskiy.twitterclient.BuildConfig
 import com.vodolazskiy.twitterclient.core.converter.ConvertersContext
 import com.vodolazskiy.twitterclient.core.di.annotation.DataConverterQualifier
-import com.vodolazskiy.twitterclient.data.db.DBImpl
 import com.vodolazskiy.twitterclient.data.LogoutFacade
 import com.vodolazskiy.twitterclient.data.LogoutFacadeImpl
+import com.vodolazskiy.twitterclient.data.db.DBImpl
 import com.vodolazskiy.twitterclient.data.db.repositories.UserFeedRepository
 import com.vodolazskiy.twitterclient.data.db.repositories.UserFeedRepositoryImpl
 import com.vodolazskiy.twitterclient.data.prefs.PrefsStorage

@@ -48,10 +48,10 @@ abstract class BaseSortedPaginationRVAdapter<ITEM> : BasePaginationRVAdapter<ITE
 
         override fun get(index: Int): ITEM = wrappedList[index]
 
-        override val size: Int get() =  wrappedList.size()
+        override val size: Int get() = wrappedList.size()
 
         override fun iterator(): Iterator<ITEM> {
-            return object: Iterator<ITEM> {
+            return object : Iterator<ITEM> {
                 private var cursor: Int = 0
                 override fun hasNext(): Boolean = cursor < size
                 override fun next(): ITEM = get(cursor++)

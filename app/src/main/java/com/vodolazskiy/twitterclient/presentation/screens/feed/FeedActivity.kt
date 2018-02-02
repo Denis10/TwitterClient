@@ -13,13 +13,14 @@ import com.vodolazskiy.twitterclient.presentation.base.BaseActivity
 import com.vodolazskiy.twitterclient.presentation.base.adapter.setRefreshLock
 import com.vodolazskiy.twitterclient.presentation.screens.feed.adapter.FeedAdapter
 import com.vodolazskiy.twitterclient.presentation.screens.login.LoginActivityManager
-import com.vodolazskiy.twitterclient.presentation.screens.post.PostActivityManager
+import com.vodolazskiy.twitterclient.presentation.screens.post.PostCallback
+import com.vodolazskiy.twitterclient.presentation.screens.post.PostScreenManager
 import kotlinx.android.synthetic.main.activity_feed.*
 import java.util.*
 import javax.inject.Inject
 
 
-class FeedActivity : BaseActivity<FeedView, FeedPresenter>(), FeedView {
+class FeedActivity : BaseActivity<FeedView, FeedPresenter>(), FeedView, PostCallback {
 
     @Suppress("ProtectedInFinal")
     @Inject
@@ -29,7 +30,7 @@ class FeedActivity : BaseActivity<FeedView, FeedPresenter>(), FeedView {
     protected lateinit var loginActivityManager: LoginActivityManager
     @Suppress("ProtectedInFinal")
     @Inject
-    protected lateinit var postActivityManager: PostActivityManager
+    protected lateinit var postScreenManager: PostScreenManager
 
     override val emptyListCount: Int get() = adapter.emptyItemCount
     override var isEmptyViewVisible: Boolean = false
@@ -52,7 +53,7 @@ class FeedActivity : BaseActivity<FeedView, FeedPresenter>(), FeedView {
         }
         rvFeeds.adapter = adapter
 
-        fabPost.setOnClickListener { postActivityManager.start(this@FeedActivity) }
+        fabPost.setOnClickListener { postScreenManager.start(supportFragmentManager) }
         swipeRefreshLayout.setRefreshLock { !adapter.isLoadingEnabled }
     }
 
@@ -89,7 +90,7 @@ class FeedActivity : BaseActivity<FeedView, FeedPresenter>(), FeedView {
         if (savedInstanceState != null) {
             adapter.set(savedInstanceState.getParcelableArrayList<Parcelable>(STATE_FEED_ADAPTER_KEY) as List<UserFeed>)
             val position = savedInstanceState.getInt(POSITION_KEY, 0)
-            if (position > 0 && position< adapter.itemCount){
+            if (position > 0 && position < adapter.itemCount) {
                 rvFeeds.scrollToPosition(position)
             }
         }
@@ -110,6 +111,10 @@ class FeedActivity : BaseActivity<FeedView, FeedPresenter>(), FeedView {
         else -> super.onOptionsItemSelected(item)
     }
 
+    override fun tweetPosted() {
+        val item: UserFeed? = if (adapter.dataStorage.size == 0) null else adapter.dataStorage.get(0)
+        presenter.refreshFeed(item)
+    }
 
     companion object {
         private const val STATE_FEED_ADAPTER_KEY = "STATE_FEED_ADAPTER_KEY"

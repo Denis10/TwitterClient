@@ -4,8 +4,6 @@ import com.twitter.sdk.android.core.TwitterCore
 import com.vodolazskiy.twitterclient.data.db.repositories.UserFeedRepository
 import com.vodolazskiy.twitterclient.data.prefs.PrefsStorage
 import io.reactivex.Completable
-import io.reactivex.internal.operators.completable.CompletableFromCallable
-import javax.inject.Inject
 
 @Suppress("ProtectedInFinal")
 internal class LogoutFacadeImpl constructor(private val userFeed: UserFeedRepository, private val prefs: PrefsStorage) :

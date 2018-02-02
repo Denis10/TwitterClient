@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
-
 import io.reactivex.Flowable;
 
 @Dao

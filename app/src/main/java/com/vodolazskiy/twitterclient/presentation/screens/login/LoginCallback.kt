@@ -7,9 +7,9 @@ import com.twitter.sdk.android.core.TwitterSession
 import com.vodolazskiy.twitterclient.data.services.login.responses.LoginDataResponse
 import io.reactivex.Single
 
-class LoginCallback: Callback<TwitterSession>() {
+class LoginCallback : Callback<TwitterSession>() {
 
-    val observer = Single.create<LoginDataResponse> { emiter->
+    val observer = Single.create<LoginDataResponse> { emiter ->
 
     }
 

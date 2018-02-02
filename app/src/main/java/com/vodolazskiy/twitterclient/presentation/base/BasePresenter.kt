@@ -6,5 +6,9 @@ interface BasePresenter<V : BaseView> : MvpPresenter<V> {
 
     fun viewStarted(view: V)
 
+    fun viewResumed(view: V)
+
+    fun viewPaused()
+
     fun viewStopped()
 }

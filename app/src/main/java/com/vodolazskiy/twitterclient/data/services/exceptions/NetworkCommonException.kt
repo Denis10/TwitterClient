@@ -1,6 +1,6 @@
 package com.vodolazskiy.twitterclient.data.services.exceptions
 
-class NetworkCommonException: NetworkException {
+class NetworkCommonException : NetworkException {
 
     constructor() {}
 

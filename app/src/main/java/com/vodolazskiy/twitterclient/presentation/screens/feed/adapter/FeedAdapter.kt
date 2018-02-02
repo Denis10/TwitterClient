@@ -6,7 +6,7 @@ import com.vodolazskiy.twitterclient.domain.converter.models.UserFeed
 import com.vodolazskiy.twitterclient.presentation.base.adapter.BaseSortedPaginationRVAdapter
 import javax.inject.Inject
 
-class FeedAdapter @Inject constructor(): BaseSortedPaginationRVAdapter<UserFeed>() {
+class FeedAdapter @Inject constructor() : BaseSortedPaginationRVAdapter<UserFeed>() {
     override val itemsComparator: (item1: UserFeed, item2: UserFeed) -> Int = { item1, item2 ->
         item2.createdAt.compareTo(item1.createdAt)
     }

@@ -4,7 +4,7 @@ import android.os.Parcelable
 import java.util.*
 
 
-interface UserFeed: Parcelable {
+interface UserFeed : Parcelable {
     val id: Long
     val createdAt: Date
     val text: String

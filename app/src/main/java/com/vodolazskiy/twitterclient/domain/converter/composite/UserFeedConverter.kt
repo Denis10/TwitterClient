@@ -25,11 +25,11 @@ class UserFeedConverter : CompositeConverter {
     }
 
     private fun olderToDataRequest(inItem: GetOlderUserFeedsRequest): GetUserFeedsDataRequest {
-        return GetUserFeedsDataRequest(inItem.limit, null,  inItem.maxId)
+        return GetUserFeedsDataRequest(inItem.limit, null, inItem.maxId)
     }
 
     private fun newerToDataRequest(inItem: GetNewerUserFeedsRequest): GetUserFeedsDataRequest {
-        return GetUserFeedsDataRequest(inItem.limit, inItem.sinceId,  null)
+        return GetUserFeedsDataRequest(inItem.limit, inItem.sinceId, null)
     }
 
     private fun postToDataRequest(inItem: PostTweetRequest): PostTweetDataRequest {

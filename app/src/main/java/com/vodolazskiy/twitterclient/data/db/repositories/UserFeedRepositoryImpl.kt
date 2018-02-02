@@ -46,6 +46,6 @@ internal class UserFeedRepositoryImpl constructor(private val dao: UserFeedDao,
     override fun getCount(): Single<Int> = SingleFromCallable { dao.count }
 
     override fun getFeeds(request: GetUserFeedsDataRequest): Flowable<List<UserFeedEntity>> {
-        return dao.getBefore(request.maxId?: Long.MAX_VALUE, request.limit).convert(converter)
+        return dao.getBefore(request.maxId ?: Long.MAX_VALUE, request.limit).convert(converter)
     }
 }

@@ -5,7 +5,6 @@ import com.vodolazskiy.twitterclient.core.di.DI
 import com.vodolazskiy.twitterclient.core.eventbus.EventBusProvider
 import com.vodolazskiy.twitterclient.core.eventbus.events.OnNetworkConnected
 import com.vodolazskiy.twitterclient.core.ioToMain
-import com.vodolazskiy.twitterclient.data.db.repositories.UserFeedRepository
 import com.vodolazskiy.twitterclient.domain.converter.models.UserFeed
 import com.vodolazskiy.twitterclient.domain.interactors.feed.UserFeedInteractor
 import com.vodolazskiy.twitterclient.domain.interactors.feed.request.GetNewerUserFeedsRequest

@@ -13,7 +13,7 @@ abstract class NetworkException : Exception {
 
     constructor(throwable: Throwable) : super(throwable)
 
-    constructor(detailMessage: String, throwable: Throwable, code: Int) : super(detailMessage, throwable){
+    constructor(detailMessage: String, throwable: Throwable, code: Int) : super(detailMessage, throwable) {
         this.statusCode = code
     }
 

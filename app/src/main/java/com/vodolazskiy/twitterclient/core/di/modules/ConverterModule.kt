@@ -23,7 +23,7 @@ class ConverterModule {
     @Singleton
     @Provides
     fun provideDataConverter(@UserFeedEntityQualifier userFeedEntityConverter: CompositeConverter,
-                         @LoginQualifier loginConverter: CompositeConverter): ConvertersContext =
+                             @LoginQualifier loginConverter: CompositeConverter): ConvertersContext =
             DataConverter(userFeedEntityConverter, loginConverter)
 
     @UserFeedEntityQualifier

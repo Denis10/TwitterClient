@@ -14,6 +14,7 @@ interface AppGraph {
 
     //presenters
     fun inject(injectItem: LoginPresenterImpl)
+
     fun inject(injectItem: FeedPresenterImpl)
     fun inject(injectionWrapper: PaginationTool.InjectionWrapper)
     fun inject(splashPresenterImpl: SplashPresenterImpl)

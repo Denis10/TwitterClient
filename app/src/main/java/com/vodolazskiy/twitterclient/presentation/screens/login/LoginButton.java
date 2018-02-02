@@ -1,7 +1,6 @@
 package com.vodolazskiy.twitterclient.presentation.screens.login;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Typeface;

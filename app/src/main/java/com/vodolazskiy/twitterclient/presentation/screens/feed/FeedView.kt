@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView
 import com.vodolazskiy.twitterclient.domain.converter.models.UserFeed
 import com.vodolazskiy.twitterclient.presentation.base.BaseView
 
-interface FeedView: BaseView {
+interface FeedView : BaseView {
 
     val emptyListCount: Int
     var isEmptyViewVisible: Boolean

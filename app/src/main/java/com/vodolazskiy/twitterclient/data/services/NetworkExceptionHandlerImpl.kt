@@ -50,7 +50,7 @@ class NetworkExceptionHandlerImpl @Inject constructor(private val appContext: Co
 
     private fun isNetworkDisabledException(throwable: Throwable): Boolean {
         return throwable is SocketTimeoutException || throwable is UnknownHostException
-        || throwable.cause is SocketTimeoutException || throwable.cause is UnknownHostException
+                || throwable.cause is SocketTimeoutException || throwable.cause is UnknownHostException
     }
 
     private fun isServerError(code: Int): Boolean {

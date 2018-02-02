@@ -17,6 +17,7 @@ abstract class BasePaginationRVAdapter<ITEM> : RecyclerView.Adapter<BasePaginati
             it.post { update.invoke() }
         }
     }
+
     var itemsTheSameComparator: ((item1: ITEM, item2: ITEM) -> Boolean) = { item1, item2 -> item1 == item2 }
     var contentTheSameComparator: ((oldItem: ITEM, newItem: ITEM) -> Boolean) = { _, _ -> true }
     var dataStorage: DataStorage<ITEM> = SimpleDataProviderImpl()
@@ -35,6 +36,7 @@ abstract class BasePaginationRVAdapter<ITEM> : RecyclerView.Adapter<BasePaginati
 
     /////////////////////////////////// BASIC DATASET OPERATIONS ///////////////////////////////////
     fun clear() = run { dataStorage.clear() }
+
     fun set(list: List<ITEM>) = dataStorage.set(list)
     fun add(list: List<ITEM>) = run { dataStorage.addAll(list); Unit }
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -118,7 +120,7 @@ abstract class BasePaginationRVAdapter<ITEM> : RecyclerView.Adapter<BasePaginati
 
     ////////////////////////////////////// ABSTRACT DATA STORAGE ///////////////////////////////////
 
-    interface DataStorage<T>: Iterable<T> {
+    interface DataStorage<T> : Iterable<T> {
         fun clear()
         fun add(element: T): Boolean
         fun addAll(elements: Collection<T>): Boolean
@@ -233,7 +235,7 @@ abstract class BasePaginationRVAdapter<ITEM> : RecyclerView.Adapter<BasePaginati
         }
 
         override fun iterator(): Iterator<T> {
-            return object: Iterator<T> {
+            return object : Iterator<T> {
                 private var cursor: Int = 0
                 override fun hasNext(): Boolean = cursor < size
 
@@ -248,10 +250,10 @@ abstract class BasePaginationRVAdapter<ITEM> : RecyclerView.Adapter<BasePaginati
         override fun addAll(elements: Collection<T>): Boolean = throw IllegalStateException("addAll() called in the ReadOnlyDataStorageWrapper")
         override fun set(elements: List<T>): Unit = throw IllegalStateException("set() called in the ReadOnlyDataStorageWrapper")
         override fun get(index: Int): T = wrappedVal[index]
-        override val size: Int get() =  wrappedVal.size
+        override val size: Int get() = wrappedVal.size
 
         override fun iterator(): Iterator<T> {
-            return object: Iterator<T> {
+            return object : Iterator<T> {
                 private var cursor: Int = 0
                 override fun hasNext(): Boolean = cursor < size
 

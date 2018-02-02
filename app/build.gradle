@@ -106,11 +106,6 @@ dependencies {
     implementation deps.rx.android
     implementation deps.rx.java
 
-    //coroutines
-//    implementation deps.coroutines.core
-//    implementation deps.coroutines.android
-//    implementation deps.coroutines.rx
-
     //dagger
     implementation deps.dagger.lib
     kapt deps.dagger.processor

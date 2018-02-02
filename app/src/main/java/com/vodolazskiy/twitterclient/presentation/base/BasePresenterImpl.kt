@@ -1,7 +1,6 @@
 package com.vodolazskiy.twitterclient.presentation.base
 
 import com.hannesdorfmann.mosby3.mvp.MvpQueuingBasePresenter
-import com.hannesdorfmann.mosby3.mvp.MvpView
 
 abstract class BasePresenterImpl<V : BaseView>(private val subscriptions: SubscriptionContainer) :
         MvpQueuingBasePresenter<V>(), BasePresenter<V>,
@@ -14,11 +13,19 @@ abstract class BasePresenterImpl<V : BaseView>(private val subscriptions: Subscr
         subscriptions.clearSubscriptions()
     }
 
-    override fun viewStarted(view: V){
+    override fun viewStarted(view: V) {
 
     }
 
-    override fun viewStopped(){
+    override fun viewResumed(view: V) {
+
+    }
+
+    override fun viewPaused() {
+
+    }
+
+    override fun viewStopped() {
 
     }
 }

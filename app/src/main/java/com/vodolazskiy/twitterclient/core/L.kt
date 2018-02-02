@@ -1,17 +1,7 @@
 package com.vodolazskiy.twitterclient.core
 
 import android.util.Log
-
 import com.vodolazskiy.twitterclient.core.di.DI
-
-import java.io.PrintWriter
-import java.io.StringWriter
-import java.net.ConnectException
-import java.net.SocketException
-import java.net.SocketTimeoutException
-import java.net.UnknownHostException
-
-import javax.net.ssl.SSLHandshakeException
 
 // TODO: 1/28/18 Use DI
 object L {

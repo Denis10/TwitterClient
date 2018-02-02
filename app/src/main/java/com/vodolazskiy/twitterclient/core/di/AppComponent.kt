@@ -15,7 +15,7 @@ import javax.inject.Singleton
     PersistenceModule::class,
     TwitterServiceModule::class,
     InteractorModule::class,
-    ActivityProviderModule::class,
+    ScreensProviderModule::class,
     EventBusModule::class,
     NetworkModule::class
 ])

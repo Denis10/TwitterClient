@@ -263,7 +263,7 @@ class PaginationTool<T> private constructor(val builder: Builder<T>) {
         // default limit for requests
         private const val DEFAULT_LIMIT = 50
         // default max attempts to retry loading request
-        private const val DEFAULT_MAX_ATTEMPTS_TO_RETRY_LOADING = 5
+        private const val DEFAULT_MAX_ATTEMPTS_TO_RETRY_LOADING = 3
         // start loading when user scrolled 1/2 items
         private const val DEFAULT_START_PAGINATION_COEFFICIENT = 0.7f
 

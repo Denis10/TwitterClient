@@ -88,7 +88,6 @@ versions.androidJunit5 = '1.0.12'
 versions.junitPlatform = '1.0.1'
 versions.junitPlatformRunner = '1.0.0-M6'
 versions.junitJupiter = '5.0.0-M6'
-versions.mockito = '1.10.19'
 def tests = [:]
 tests.spek = ["org.jetbrains.spek:spek-api:$versions.spek", {
     exclude group: "org.jetbrains.kotlin"
@@ -101,7 +100,6 @@ tests.kotlinReflect = "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlin"
 tests.junitPlatformEngine = "org.junit.platform:junit-platform-engine:$versions.junitPlatform"
 tests.junitPlatformRunner = "org.junit.platform:junit-platform-runner:$versions.junitPlatformRunner"
 tests.junitJupiter = "org.junit.jupiter:junit-jupiter-api:$versions.junitJupiter"
-tests.mockito = "org.mockito:mockito-core:$versions.mockito"
 deps.tests = tests
 //============================================ REPOSITORIES ========================================
 def addRepos(RepositoryHandler handler) {

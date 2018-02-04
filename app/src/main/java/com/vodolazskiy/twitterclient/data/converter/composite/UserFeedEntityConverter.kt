@@ -20,7 +20,7 @@ class UserFeedEntityConverter : CompositeConverter {
         val date = dateFormat.parse(inItem.createdAt)
         var mediaUrl: String? = null
         inItem.extendedEntities?.media?.let {
-            if (it.isNotEmpty()){
+            if (it.isNotEmpty()) {
                 mediaUrl = it.filter { !it.mediaUrlHttps.isNullOrEmpty() }.map { it.mediaUrlHttps!! }.firstOrNull()
             }
         }

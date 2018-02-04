@@ -53,7 +53,7 @@ class FeedHolder private constructor(itemView: View) : BasePaginationRVAdapter.B
     }
 
     private fun dpToPxInt(context: Context, dp: Int): Int {
-        return  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), context.resources.displayMetrics) as Int
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), context.resources.displayMetrics) as Int
     }
 
     companion object {

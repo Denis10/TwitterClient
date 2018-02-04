@@ -26,7 +26,7 @@ class PostDialog : BaseDialogFragment<PostView, PostPresenter>(), PostView {
         }
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-           tilTweet.error = ""
+            tilTweet.error = ""
         }
     }
 

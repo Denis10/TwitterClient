@@ -61,7 +61,7 @@ android {
             keyPassword keystoreProperties['debugKeyPassword']
         }
         release {
-            //todo change keystore
+            //todo change keystore for release build
             storeFile file("../buildsystem/keystore/twitter_debug.keystore")
             storePassword keystoreProperties['releaseStorePassword']
             keyAlias keystoreProperties['releaseKeyAlias']
@@ -136,5 +136,4 @@ dependencies {
     testImplementation deps.tests.junitPlatformEngine
     testImplementation deps.tests.junitPlatformRunner
     testImplementation deps.tests.junitJupiter
-    testImplementation deps.tests.mockito
 }

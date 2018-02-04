@@ -3,7 +3,7 @@ package com.vodolazskiy.twitterclient.core
 import android.util.Log
 import com.vodolazskiy.twitterclient.core.di.DI
 
-// TODO: 1/28/18 Use DI
+// TODO: Probably use DI
 object L {
 
     /**

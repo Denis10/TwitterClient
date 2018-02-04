@@ -93,7 +93,7 @@ class FeedPresenterImpl : BasePresenterImpl<FeedView>(), FeedPresenter {
                         it.addItems(feeds)
                         it.hideLoadingProgress()
                         it.isEmptyViewVisible = !hasLoadedItems()
-                        if (scrollToTop){
+                        if (scrollToTop) {
                             it.scrollToTop()
                         }
                     }

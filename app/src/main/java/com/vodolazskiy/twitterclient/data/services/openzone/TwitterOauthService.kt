@@ -1,8 +1,8 @@
-package com.vodolazskiy.twitterclient.data.services.login
+package com.vodolazskiy.twitterclient.data.services.openzone
 
 import android.app.Activity
 import android.content.Intent
-import com.vodolazskiy.twitterclient.data.services.login.responses.LoginDataResponse
+import com.vodolazskiy.twitterclient.data.services.openzone.responses.LoginDataResponse
 import io.reactivex.Observable
 
 

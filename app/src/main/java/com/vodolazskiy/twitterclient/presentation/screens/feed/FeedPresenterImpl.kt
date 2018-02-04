@@ -185,7 +185,7 @@ class FeedPresenterImpl : BasePresenterImpl<FeedView>(), FeedPresenter {
                 .subscribe({
                     onceViewAttached { it.logout() }
                 }, {
-                    L.e(it)
+                    L.exception(it)
                 })
                 .bind(this)
     }

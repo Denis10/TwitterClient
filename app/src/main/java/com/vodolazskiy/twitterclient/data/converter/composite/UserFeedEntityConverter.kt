@@ -21,7 +21,7 @@ class UserFeedEntityConverter : CompositeConverter {
         var mediaUrl: String? = null
         inItem.extendedEntities?.media?.let {
             if (it.isNotEmpty()){
-                mediaUrl = it.filter { !it.mediaUrlHttps.isNullOrEmpty() }.map { it.mediaUrlHttps!! }.first()
+                mediaUrl = it.filter { !it.mediaUrlHttps.isNullOrEmpty() }.map { it.mediaUrlHttps!! }.firstOrNull()
             }
         }
 

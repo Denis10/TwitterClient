@@ -136,4 +136,5 @@ dependencies {
     testImplementation deps.tests.junitPlatformEngine
     testImplementation deps.tests.junitPlatformRunner
     testImplementation deps.tests.junitJupiter
+    testImplementation deps.tests.mockito
 }

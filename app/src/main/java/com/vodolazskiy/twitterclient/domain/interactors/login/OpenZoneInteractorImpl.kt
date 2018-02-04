@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import com.vodolazskiy.twitterclient.data.LogoutFacade
 import com.vodolazskiy.twitterclient.data.prefs.PrefsStorage
-import com.vodolazskiy.twitterclient.data.services.login.TwitterOauthService
+import com.vodolazskiy.twitterclient.data.services.openzone.TwitterOauthService
 import io.reactivex.Completable
 import io.reactivex.Observable
 import javax.inject.Inject

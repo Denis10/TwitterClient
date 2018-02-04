@@ -4,7 +4,7 @@ import com.twitter.sdk.android.core.Callback
 import com.twitter.sdk.android.core.Result
 import com.twitter.sdk.android.core.TwitterException
 import com.twitter.sdk.android.core.TwitterSession
-import com.vodolazskiy.twitterclient.data.services.login.responses.LoginDataResponse
+import com.vodolazskiy.twitterclient.data.services.openzone.responses.LoginDataResponse
 import io.reactivex.Single
 
 class LoginCallback : Callback<TwitterSession>() {

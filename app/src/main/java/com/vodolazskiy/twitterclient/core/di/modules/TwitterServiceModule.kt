@@ -4,8 +4,8 @@ import com.twitter.sdk.android.core.TwitterCore
 import com.vodolazskiy.twitterclient.core.converter.ConvertersContext
 import com.vodolazskiy.twitterclient.core.di.annotation.DataConverterQualifier
 import com.vodolazskiy.twitterclient.data.services.NetworkExceptionHandler
-import com.vodolazskiy.twitterclient.data.services.login.TwitterOauthService
-import com.vodolazskiy.twitterclient.data.services.login.TwitterOauthServiceImpl
+import com.vodolazskiy.twitterclient.data.services.openzone.TwitterOauthService
+import com.vodolazskiy.twitterclient.data.services.openzone.TwitterOauthServiceImpl
 import com.vodolazskiy.twitterclient.data.services.userzone.TwitterService
 import com.vodolazskiy.twitterclient.data.services.userzone.TwitterServiceImpl
 import dagger.Module

@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="tw_color_primary">#3F51B5</color>
+    <color name="tw_color_primary_dark">#303F9F</color>
+    <color name="tw_color_accent">#FF4081</color>
+
+    <color name="tw_manatee">#97989B</color>
+    <color name="tw_text_main">#303237</color>
+    <color name="tw_text_main_50">#7F303237</color>
+    <color name="tw_light_red">#f64c68</color>
+    <color name="tw_pastel_gray">#CBCBCD</color>
+    <color name="tw_blue">#4186C8</color>
+    <color name="tw_blue_50">#7F4186C8</color>
 </resources>

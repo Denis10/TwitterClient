@@ -33,6 +33,7 @@
   - Should cover convertes
   - Should cover presenters
   - Should cover delegates
+  - For integration test: create TestComponent and CustomTestRunner. In the TestComponent replace original modules with mocked modules.
   
   ### Expand feed item:
   

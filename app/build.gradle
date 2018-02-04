@@ -89,7 +89,6 @@ android {
 }
 
 dependencies {
-    //todo review it
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     //support
@@ -129,4 +128,12 @@ dependencies {
     //mosby
     implementation deps.mosby.core
     implementation deps.mosby.queuing
+
+    //tests
+    testImplementation deps.tests.spek
+    testImplementation deps.tests.spekJunitPlatformEngine
+    testImplementation deps.tests.kotlinReflect
+    testImplementation deps.tests.junitPlatformEngine
+    testImplementation deps.tests.junitPlatformRunner
+    testImplementation deps.tests.junitJupiter
 }

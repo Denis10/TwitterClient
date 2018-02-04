@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">TwitterClient</string>
+    <string name="loading_more">Loading more...</string>
+    <string name="no_internet_try_later">No internet connection! Please try again later.</string>
+    <string name="something_went_wrong_title">Something went wrong!</string>
+    <string name="no_tweets">No tweets</string>
+    <string name="server_error">Server error</string>
+    <string name="too_many_requests">Too many requests</string>
+    <string name="twitter_exception">Twitter exception</string>
+    <string name="logout">Logout</string>
+    <string name="tweet">Tweet</string>
+    <string name="post">Post</string>
+    <string name="post_tweet">Post tweet</string>
+    <string name="empty_field">Empty field</string>
 </resources>

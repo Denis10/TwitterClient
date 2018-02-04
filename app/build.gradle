@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+def globalConfiguration = rootProject.extensions.getByName("ext")
 def keystorePropertiesFile = rootProject.file("./buildsystem/keystore/keystore.properties")
 def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
@@ -22,6 +23,9 @@ android {
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
         versionCode 1
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        resValue "string", "twitter_key", globalConfiguration['twitterKey']
+        resValue "string", "twitter_secret", globalConfiguration['twitterSecret']
     }
     sourceSets {
         main {
@@ -49,10 +53,37 @@ android {
         exclude 'protobuf.meta'
         exclude 'META-INF/services/javax.annotation.processing.Processor'
     }
+    signingConfigs {
+        debug {
+            storeFile file("../buildsystem/keystore/twitter_debug.keystore")
+            storePassword keystoreProperties['debugStorePassword']
+            keyAlias keystoreProperties['debugKeyAlias']
+            keyPassword keystoreProperties['debugKeyPassword']
+        }
+        release {
+            //todo change keystore for release build
+            storeFile file("../buildsystem/keystore/twitter_debug.keystore")
+            storePassword keystoreProperties['releaseStorePassword']
+            keyAlias keystoreProperties['releaseKeyAlias']
+            keyPassword keystoreProperties['releaseKeyPassword']
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    applicationVariants.all { variant ->
+        println("Iterating variant: " + variant.getName())
+        switch (variant.getName()) {
+            case 'release':
+                variant.buildConfigField "String", "DB_NAME", "\"${globalConfiguration['databaseNameRelease']}\""
+                break
+            case 'debug':
+                variant.buildConfigField "String", "DB_NAME", "\"${globalConfiguration['databaseNameDev']}\""
+                break
         }
     }
 }
@@ -65,6 +96,8 @@ dependencies {
     implementation deps.support.annotations
     implementation deps.support.recyclerview
     implementation deps.support.constraint
+    implementation deps.support.design
+    implementation deps.support.cardview
 
     //kotlin
     implementation deps.kotlin.stdlib
@@ -73,11 +106,6 @@ dependencies {
     implementation deps.rx.android
     implementation deps.rx.java
 
-    //coroutines
-    implementation deps.coroutines.core
-    implementation deps.coroutines.android
-    implementation deps.coroutines.rx
-
     //dagger
     implementation deps.dagger.lib
     kapt deps.dagger.processor
@@ -85,4 +113,27 @@ dependencies {
     kapt deps.dagger.androidProcessor
     implementation deps.dagger.support
 
+    //database
+    implementation deps.database.roomRuntime
+    implementation deps.database.roomRxAdapter
+    kapt deps.database.roomAnnotationProcessor
+
+    //glide
+    implementation deps.glide.glide
+    kapt deps.glide.glideCompiler
+
+    //twitter
+    implementation deps.twitter.core
+
+    //mosby
+    implementation deps.mosby.core
+    implementation deps.mosby.queuing
+
+    //tests
+    testImplementation deps.tests.spek
+    testImplementation deps.tests.spekJunitPlatformEngine
+    testImplementation deps.tests.kotlinReflect
+    testImplementation deps.tests.junitPlatformEngine
+    testImplementation deps.tests.junitPlatformRunner
+    testImplementation deps.tests.junitJupiter
 }

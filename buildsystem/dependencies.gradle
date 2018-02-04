@@ -14,6 +14,7 @@ support.annotations = "com.android.support:support-annotations:$versions.support
 support.appcompat = "com.android.support:appcompat-v7:$versions.support"
 support.design = "com.android.support:design:$versions.support"
 support.recyclerview = "com.android.support:recyclerview-v7:$versions.support"
+support.cardview = "com.android.support:cardview-v7:$versions.support"
 support.constraint = "com.android.support.constraint:constraint-layout:$versions.constraint"
 deps.support = support
 
@@ -25,19 +26,28 @@ kotlin.test = "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlin"
 kotlin.gradle_plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
 deps.kotlin = kotlin
 
-versions.coroutines = '0.19.3'
-def coroutines = [:]
-coroutines.core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines"
-coroutines.android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
-coroutines.rx = "org.jetbrains.kotlinx:kotlinx-coroutines-rx2:$versions.coroutines"
-deps.coroutines = coroutines
-
 //================================================ RX ==============================================
 
 def rx = [:]
 rx.java ="io.reactivex.rxjava2:rxjava:2.1.7"
 rx.android = "io.reactivex.rxjava2:rxandroid:2.0.1"
 deps.rx = rx
+
+//============================================= DATABASE ===========================================
+def database = [:]
+versions.archComponents = '1.0.0'
+database.roomRuntime = "android.arch.persistence.room:runtime:$versions.archComponents"
+database.roomAnnotationProcessor = "android.arch.persistence.room:compiler:$versions.archComponents"
+database.roomRxAdapter = "android.arch.persistence.room:rxjava2:$versions.archComponents"
+deps.database = database
+
+//=============================================== GLIDE ============================================
+versions.glideVersion = '4.3.1'
+
+def glide = [:]
+glide.glide            = "com.github.bumptech.glide:glide:$versions.glideVersion"
+glide.glideCompiler    = "com.github.bumptech.glide:compiler:$versions.glideVersion"
+deps.glide = glide
 
 //============================================== DAGGER ============================================
 versions.dagger = '2.13'
@@ -49,6 +59,20 @@ dagger.androidProcessor = "com.google.dagger:dagger-android-processor:$versions.
 dagger.support = "com.google.dagger:dagger-android-support:$versions.dagger"
 
 deps.dagger = dagger
+
+//============================================= TWITTER ============================================
+versions.twitter = '3.0.0'
+def twitter = [:]
+twitter.core = "com.twitter.sdk.android:twitter-core:$versions.twitter"
+deps.twitter = twitter
+
+//============================================= MOSBY ==============================================
+versions.mosby = '3.1.0'
+def mosby = [:]
+mosby.core = "com.hannesdorfmann.mosby3:mvp:$versions.mosby"
+mosby.queuing = "com.hannesdorfmann.mosby3:mvp-queuing-presenter:$versions.mosby"
+deps.mosby = mosby
+
 //============================================== BUILD =============================================
 deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
 
@@ -59,8 +83,23 @@ build_versions.compile_sdk = 26
 build_versions.build_tools = "26.0.2"
 ext.build_versions = build_versions
 //============================================== TESTS =============================================
+versions.spek = '1.1.5'
+versions.androidJunit5 = '1.0.12'
+versions.junitPlatform = '1.0.1'
+versions.junitPlatformRunner = '1.0.0-M6'
+versions.junitJupiter = '5.0.0-M6'
 def tests = [:]
-
+tests.spek = ["org.jetbrains.spek:spek-api:$versions.spek", {
+    exclude group: "org.jetbrains.kotlin"
+}]
+tests.spekJunitPlatformEngine = ["org.jetbrains.spek:spek-junit-platform-engine:$versions.spek", {
+    exclude group: "org.junit.platform"
+    exclude group: "org.jetbrains.kotlin"
+}]
+tests.kotlinReflect = "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlin"
+tests.junitPlatformEngine = "org.junit.platform:junit-platform-engine:$versions.junitPlatform"
+tests.junitPlatformRunner = "org.junit.platform:junit-platform-runner:$versions.junitPlatformRunner"
+tests.junitJupiter = "org.junit.jupiter:junit-jupiter-api:$versions.junitJupiter"
 deps.tests = tests
 //============================================ REPOSITORIES ========================================
 def addRepos(RepositoryHandler handler) {
@@ -73,3 +112,11 @@ ext.addRepos = this.&addRepos
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ext.deps = deps
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+ext {
+    databaseNameDev = 'dev-twitter-client.db'
+    databaseNameRelease = 'twitter-client.db'
+
+    twitterKey = "FxVCGNWZxpyCeH14CYYeVMD5x"
+    twitterSecret = "MtuUk0ittOtQY2wmIoi6EZFCNR4NSmsKzRK3WTZsWEyDDDiH25"
+}

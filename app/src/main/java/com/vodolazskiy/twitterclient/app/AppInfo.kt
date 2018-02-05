@@ -7,7 +7,7 @@ import android.provider.Settings
 import com.vodolazskiy.twitterclient.core.di.DI
 import javax.inject.Inject
 
-class AppInfo @Inject constructor(val context: Context) : IAppInfoProvider {
+class AppInfo @Inject constructor(val context: Context) : AppInfoProvider {
     @SuppressLint("HardwareIds")
     val androidIdVal = Settings.Secure.getString(DI.context.contentResolver, Settings.Secure.ANDROID_ID)
     val manufacturer = Build.MANUFACTURER

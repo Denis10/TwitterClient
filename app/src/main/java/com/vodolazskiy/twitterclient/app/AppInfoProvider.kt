@@ -1,7 +1,7 @@
 package com.vodolazskiy.twitterclient.app
 
 
-interface IAppInfoProvider {
+interface AppInfoProvider {
     val androidId: String
     val deviceName: String
 }

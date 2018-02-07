@@ -1,4 +1,4 @@
-package com.vodolazskiy.twitterclient.data.modelinterfaces
+package com.vodolazskiy.twitterclient.domain.datalayerobjects.modelinterfaces
 
 import java.util.*
 

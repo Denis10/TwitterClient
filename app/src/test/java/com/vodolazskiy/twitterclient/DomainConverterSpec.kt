@@ -1,8 +1,8 @@
 package com.vodolazskiy.twitterclient
 
 import com.vodolazskiy.twitterclient.data.db.room.UserFeedDbEntity
-import com.vodolazskiy.twitterclient.data.services.userzone.request.GetUserFeedsDataRequest
-import com.vodolazskiy.twitterclient.data.services.userzone.request.PostTweetDataRequest
+import com.vodolazskiy.twitterclient.domain.datalayerobjects.request.GetUserFeedsDataRequest
+import com.vodolazskiy.twitterclient.domain.datalayerobjects.request.PostTweetDataRequest
 import com.vodolazskiy.twitterclient.domain.converter.DomainConverter
 import com.vodolazskiy.twitterclient.domain.converter.composite.UserFeedConverter
 import com.vodolazskiy.twitterclient.domain.converter.models.UserFeedItem

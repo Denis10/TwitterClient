@@ -4,10 +4,10 @@ import com.vodolazskiy.twitterclient.core.L
 import com.vodolazskiy.twitterclient.core.converter.ConvertersContext
 import com.vodolazskiy.twitterclient.core.di.annotation.DomainConverterQualifier
 import com.vodolazskiy.twitterclient.core.subscribeAsync
-import com.vodolazskiy.twitterclient.data.db.repositories.UserFeedRepository
-import com.vodolazskiy.twitterclient.data.services.userzone.TwitterService
-import com.vodolazskiy.twitterclient.data.services.userzone.request.GetUserFeedsDataRequest
-import com.vodolazskiy.twitterclient.data.services.userzone.request.PostTweetDataRequest
+import com.vodolazskiy.twitterclient.domain.datalayerobjects.componentinterfaces.UserFeedRepository
+import com.vodolazskiy.twitterclient.domain.datalayerobjects.componentinterfaces.TwitterService
+import com.vodolazskiy.twitterclient.domain.datalayerobjects.request.GetUserFeedsDataRequest
+import com.vodolazskiy.twitterclient.domain.datalayerobjects.request.PostTweetDataRequest
 import com.vodolazskiy.twitterclient.domain.converter.models.UserFeed
 import com.vodolazskiy.twitterclient.domain.interactors.feed.request.GetNewerUserFeedsRequest
 import com.vodolazskiy.twitterclient.domain.interactors.feed.request.GetOlderUserFeedsRequest

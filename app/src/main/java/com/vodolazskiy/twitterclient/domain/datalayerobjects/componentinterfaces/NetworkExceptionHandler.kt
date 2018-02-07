@@ -1,4 +1,4 @@
-package com.vodolazskiy.twitterclient.data.services
+package com.vodolazskiy.twitterclient.domain.datalayerobjects.componentinterfaces
 
 interface NetworkExceptionHandler {
 

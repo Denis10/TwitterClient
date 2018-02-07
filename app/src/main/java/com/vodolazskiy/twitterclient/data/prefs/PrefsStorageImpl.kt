@@ -2,6 +2,7 @@ package com.vodolazskiy.twitterclient.data.prefs
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.vodolazskiy.twitterclient.domain.datalayerobjects.componentinterfaces.PrefsStorage
 import io.reactivex.Completable
 import io.reactivex.internal.operators.completable.CompletableFromCallable
 

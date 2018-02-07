@@ -9,7 +9,7 @@ import com.vodolazskiy.twitterclient.data.converter.DataConverter
 import com.vodolazskiy.twitterclient.data.converter.composite.LoginConverter
 import com.vodolazskiy.twitterclient.data.converter.composite.UserFeedEntityConverter
 import com.vodolazskiy.twitterclient.data.db.room.UserFeedDbEntity
-import com.vodolazskiy.twitterclient.data.services.openzone.responses.LoginDataResponse
+import com.vodolazskiy.twitterclient.domain.datalayerobjects.responses.LoginDataResponse
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it

@@ -7,8 +7,9 @@ import com.vodolazskiy.twitterclient.core.converter.convertToOut
 import com.vodolazskiy.twitterclient.core.di.annotation.DataConverterQualifier
 import com.vodolazskiy.twitterclient.data.db.room.UserFeedDao
 import com.vodolazskiy.twitterclient.data.db.room.UserFeedDbEntity
-import com.vodolazskiy.twitterclient.data.modelinterfaces.UserFeedEntity
-import com.vodolazskiy.twitterclient.data.services.userzone.request.GetUserFeedsDataRequest
+import com.vodolazskiy.twitterclient.domain.datalayerobjects.componentinterfaces.UserFeedRepository
+import com.vodolazskiy.twitterclient.domain.datalayerobjects.modelinterfaces.UserFeedEntity
+import com.vodolazskiy.twitterclient.domain.datalayerobjects.request.GetUserFeedsDataRequest
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single

@@ -9,8 +9,9 @@ import com.twitter.sdk.android.core.TwitterSession
 import com.twitter.sdk.android.core.identity.TwitterAuthClient
 import com.vodolazskiy.twitterclient.core.converter.ConvertersContext
 import com.vodolazskiy.twitterclient.core.di.annotation.DataConverterQualifier
-import com.vodolazskiy.twitterclient.data.services.NetworkExceptionHandler
-import com.vodolazskiy.twitterclient.data.services.openzone.responses.LoginDataResponse
+import com.vodolazskiy.twitterclient.domain.datalayerobjects.componentinterfaces.NetworkExceptionHandler
+import com.vodolazskiy.twitterclient.domain.datalayerobjects.componentinterfaces.TwitterOauthService
+import com.vodolazskiy.twitterclient.domain.datalayerobjects.responses.LoginDataResponse
 import io.reactivex.Observable
 
 class TwitterOauthServiceImpl constructor(@DataConverterQualifier private val converter: ConvertersContext,

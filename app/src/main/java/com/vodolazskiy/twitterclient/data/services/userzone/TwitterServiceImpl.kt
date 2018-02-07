@@ -4,10 +4,11 @@ import com.twitter.sdk.android.core.*
 import com.twitter.sdk.android.core.models.Tweet
 import com.vodolazskiy.twitterclient.core.converter.ConvertersContext
 import com.vodolazskiy.twitterclient.core.di.annotation.DataConverterQualifier
-import com.vodolazskiy.twitterclient.data.modelinterfaces.UserFeedEntity
-import com.vodolazskiy.twitterclient.data.services.NetworkExceptionHandler
-import com.vodolazskiy.twitterclient.data.services.userzone.request.GetUserFeedsDataRequest
-import com.vodolazskiy.twitterclient.data.services.userzone.request.PostTweetDataRequest
+import com.vodolazskiy.twitterclient.domain.datalayerobjects.modelinterfaces.UserFeedEntity
+import com.vodolazskiy.twitterclient.domain.datalayerobjects.componentinterfaces.NetworkExceptionHandler
+import com.vodolazskiy.twitterclient.domain.datalayerobjects.componentinterfaces.TwitterService
+import com.vodolazskiy.twitterclient.domain.datalayerobjects.request.GetUserFeedsDataRequest
+import com.vodolazskiy.twitterclient.domain.datalayerobjects.request.PostTweetDataRequest
 import io.reactivex.Observable
 
 internal class TwitterServiceImpl constructor(session: TwitterSession, @DataConverterQualifier private val converter: ConvertersContext,

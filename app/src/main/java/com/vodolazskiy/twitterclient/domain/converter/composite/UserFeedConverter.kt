@@ -3,9 +3,9 @@ package com.vodolazskiy.twitterclient.domain.converter.composite
 import com.vodolazskiy.twitterclient.core.converter.CompositeConverter
 import com.vodolazskiy.twitterclient.core.converter.ConvertersContext
 import com.vodolazskiy.twitterclient.core.converter.registerConverter
-import com.vodolazskiy.twitterclient.data.modelinterfaces.UserFeedEntity
-import com.vodolazskiy.twitterclient.data.services.userzone.request.GetUserFeedsDataRequest
-import com.vodolazskiy.twitterclient.data.services.userzone.request.PostTweetDataRequest
+import com.vodolazskiy.twitterclient.domain.datalayerobjects.modelinterfaces.UserFeedEntity
+import com.vodolazskiy.twitterclient.domain.datalayerobjects.request.GetUserFeedsDataRequest
+import com.vodolazskiy.twitterclient.domain.datalayerobjects.request.PostTweetDataRequest
 import com.vodolazskiy.twitterclient.domain.converter.models.UserFeedItem
 import com.vodolazskiy.twitterclient.domain.interactors.feed.request.GetNewerUserFeedsRequest
 import com.vodolazskiy.twitterclient.domain.interactors.feed.request.GetOlderUserFeedsRequest

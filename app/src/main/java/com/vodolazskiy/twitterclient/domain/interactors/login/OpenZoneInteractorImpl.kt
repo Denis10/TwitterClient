@@ -2,9 +2,9 @@ package com.vodolazskiy.twitterclient.domain.interactors.login
 
 import android.app.Activity
 import android.content.Intent
-import com.vodolazskiy.twitterclient.data.LogoutFacade
-import com.vodolazskiy.twitterclient.data.prefs.PrefsStorage
-import com.vodolazskiy.twitterclient.data.services.openzone.TwitterOauthService
+import com.vodolazskiy.twitterclient.domain.datalayerobjects.componentinterfaces.LogoutFacade
+import com.vodolazskiy.twitterclient.domain.datalayerobjects.componentinterfaces.PrefsStorage
+import com.vodolazskiy.twitterclient.domain.datalayerobjects.componentinterfaces.TwitterOauthService
 import io.reactivex.Completable
 import io.reactivex.Observable
 import javax.inject.Inject

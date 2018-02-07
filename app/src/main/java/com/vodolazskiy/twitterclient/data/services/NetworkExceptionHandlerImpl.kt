@@ -6,6 +6,7 @@ import com.twitter.sdk.android.core.TwitterException
 import com.vodolazskiy.twitterclient.R
 import com.vodolazskiy.twitterclient.core.L
 import com.vodolazskiy.twitterclient.data.services.exceptions.*
+import com.vodolazskiy.twitterclient.domain.datalayerobjects.componentinterfaces.NetworkExceptionHandler
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import javax.inject.Inject

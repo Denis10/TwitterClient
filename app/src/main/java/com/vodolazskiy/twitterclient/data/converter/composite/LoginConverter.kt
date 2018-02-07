@@ -4,7 +4,7 @@ import com.twitter.sdk.android.core.TwitterSession
 import com.vodolazskiy.twitterclient.core.converter.CompositeConverter
 import com.vodolazskiy.twitterclient.core.converter.ConvertersContext
 import com.vodolazskiy.twitterclient.core.converter.registerConverter
-import com.vodolazskiy.twitterclient.data.services.openzone.responses.LoginDataResponse
+import com.vodolazskiy.twitterclient.domain.datalayerobjects.responses.LoginDataResponse
 
 class LoginConverter : CompositeConverter {
     override fun register(convertersContext: ConvertersContext) {

@@ -1,0 +1,3 @@
+package com.vodolazskiy.twitterclient.domain.datalayerobjects.modelinterfaces
+
+interface DataModel

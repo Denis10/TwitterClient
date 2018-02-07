@@ -4,7 +4,7 @@ import com.vodolazskiy.twitterclient.core.network.NetworkConnectionChangeListene
 import com.vodolazskiy.twitterclient.core.network.NetworkConnectionChangeListenerImpl
 import com.vodolazskiy.twitterclient.core.network.NetworkStatus
 import com.vodolazskiy.twitterclient.core.network.NetworkStatusImpl
-import com.vodolazskiy.twitterclient.data.services.NetworkExceptionHandler
+import com.vodolazskiy.twitterclient.domain.datalayerobjects.componentinterfaces.NetworkExceptionHandler
 import com.vodolazskiy.twitterclient.data.services.NetworkExceptionHandlerImpl
 import com.vodolazskiy.twitterclient.data.services.exceptions.ExceptionType
 import com.vodolazskiy.twitterclient.data.services.exceptions.ExceptionTypeImpl

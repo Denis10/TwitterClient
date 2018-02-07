@@ -1,4 +1,4 @@
-package com.vodolazskiy.twitterclient.data
+package com.vodolazskiy.twitterclient.domain.datalayerobjects.componentinterfaces
 
 import io.reactivex.Completable
 

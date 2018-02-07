@@ -3,7 +3,7 @@ package com.vodolazskiy.twitterclient.data.db.room
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
-import com.vodolazskiy.twitterclient.data.modelinterfaces.UserFeedEntity
+import com.vodolazskiy.twitterclient.domain.datalayerobjects.modelinterfaces.UserFeedEntity
 import java.util.*
 
 @Entity(tableName = UserFeedDbEntity.TABLE_NAME)

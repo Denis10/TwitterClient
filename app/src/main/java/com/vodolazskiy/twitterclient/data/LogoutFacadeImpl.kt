@@ -1,8 +1,9 @@
 package com.vodolazskiy.twitterclient.data
 
 import com.twitter.sdk.android.core.TwitterCore
-import com.vodolazskiy.twitterclient.data.db.repositories.UserFeedRepository
-import com.vodolazskiy.twitterclient.data.prefs.PrefsStorage
+import com.vodolazskiy.twitterclient.domain.datalayerobjects.componentinterfaces.UserFeedRepository
+import com.vodolazskiy.twitterclient.domain.datalayerobjects.componentinterfaces.PrefsStorage
+import com.vodolazskiy.twitterclient.domain.datalayerobjects.componentinterfaces.LogoutFacade
 import io.reactivex.Completable
 
 @Suppress("ProtectedInFinal")

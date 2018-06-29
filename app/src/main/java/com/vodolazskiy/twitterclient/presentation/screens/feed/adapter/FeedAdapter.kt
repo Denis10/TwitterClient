@@ -26,7 +26,7 @@ class FeedAdapter @Inject constructor() : BaseSortedPaginationRVAdapter<UserFeed
     }
 
     init {
-        itemsTheSameComparator = { oldItem, newItem ->
+        contentTheSameComparator = { oldItem, newItem ->
             oldItem.id == newItem.id
                     && oldItem.createdAt == newItem.createdAt
                     && oldItem.text == newItem.text

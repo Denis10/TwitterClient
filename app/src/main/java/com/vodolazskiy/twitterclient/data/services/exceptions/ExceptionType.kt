@@ -9,7 +9,5 @@ interface ExceptionType {
 
 class ExceptionTypeImpl @Inject constructor() : ExceptionType {
 
-    override fun isNoInternet(throwable: Throwable): Boolean {
-        return throwable is NetworkDisabledException
-    }
+    override fun isNoInternet(throwable: Throwable) = throwable is NetworkException.NetworkDisabledException
 }

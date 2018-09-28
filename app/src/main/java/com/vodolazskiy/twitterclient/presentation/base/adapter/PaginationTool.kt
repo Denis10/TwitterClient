@@ -14,11 +14,13 @@ import io.reactivex.ObservableEmitter
 import io.reactivex.Scheduler
 import javax.inject.Inject
 
+//TODO Can be removed
+
 /**
  * Usage example:
  * Disposable d = PaginationTool.builder<List<Item>>(recyclerView) {
 beforeLoadingListener = { _ -> showLoadingProgress() }
-limit = LIMIT
+limit = PAGINATION_LIMIT
 emptyListCount = localEmptyListCount
 pagingListener = { offset -> getItemsObservable(offset) }
 }.subscribe {
@@ -32,6 +34,7 @@ d.dispose()
 /**
  * Note! Pagination will be stopped when the query does not change the RecyclerViewAdapter.itemCount or itemsCountProvider
  */
+@Deprecated("Uses view and presenter too close", ReplaceWith("PaginationRvHelper"))
 class PaginationTool<T> private constructor(val builder: Builder<T>) {
     private val wrapper = InjectionWrapper()
 
@@ -252,9 +255,9 @@ class PaginationTool<T> private constructor(val builder: Builder<T>) {
         @Inject
         lateinit var exceptionType: ExceptionType
 
-        init {
-            DI.component.inject(this)
-        }
+//        init {
+//            DI.component.inject(this)
+//        }
     }
 
     companion object {

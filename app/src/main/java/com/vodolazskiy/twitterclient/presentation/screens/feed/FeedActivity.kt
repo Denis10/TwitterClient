@@ -11,12 +11,14 @@ import android.widget.Toast
 import com.vodolazskiy.twitterclient.R
 import com.vodolazskiy.twitterclient.domain.converter.models.UserFeed
 import com.vodolazskiy.twitterclient.presentation.base.BaseActivity
+import com.vodolazskiy.twitterclient.presentation.base.adapter.PaginationRvHelper
 import com.vodolazskiy.twitterclient.presentation.base.adapter.getFirstVisibleItemPosition
 import com.vodolazskiy.twitterclient.presentation.base.adapter.setRefreshLock
 import com.vodolazskiy.twitterclient.presentation.screens.feed.adapter.FeedAdapter
 import com.vodolazskiy.twitterclient.presentation.screens.login.LoginActivityManager
 import com.vodolazskiy.twitterclient.presentation.screens.post.PostCallback
 import com.vodolazskiy.twitterclient.presentation.screens.post.PostScreenManager
+import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_feed.*
 import java.util.*
 import javax.inject.Inject
@@ -44,6 +46,11 @@ class FeedActivity : BaseActivity<FeedView, FeedPresenter>(), FeedView, PostCall
         }
     override val feedRecyclerView: RecyclerView get() = rvFeeds
     override fun createPresenter(): FeedPresenter = FeedPresenterImpl()
+
+    override val scrollObservable: Observable<Int>
+        get() = PaginationRvHelper(recyclerView = rvFeeds, limit = PAGINATION_LIMIT,
+                emptyListCount = adapter.emptyItemCount)
+                .getScrollObservable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

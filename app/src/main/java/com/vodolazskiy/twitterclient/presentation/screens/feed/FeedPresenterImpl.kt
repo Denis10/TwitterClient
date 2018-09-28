@@ -11,15 +11,13 @@ import com.vodolazskiy.twitterclient.domain.interactors.feed.request.GetNewerUse
 import com.vodolazskiy.twitterclient.domain.interactors.feed.request.GetOlderUserFeedsRequest
 import com.vodolazskiy.twitterclient.domain.interactors.login.OpenZoneInteractor
 import com.vodolazskiy.twitterclient.presentation.base.BasePresenterImpl
-import com.vodolazskiy.twitterclient.presentation.base.adapter.PaginationTool
 import com.vodolazskiy.twitterclient.presentation.base.bind
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import java.util.concurrent.atomic.AtomicBoolean
-import java.util.concurrent.atomic.AtomicInteger
 import javax.inject.Inject
 
-private const val LIMIT = 20
+const val PAGINATION_LIMIT = 20
 
 class FeedPresenterImpl : BasePresenterImpl<FeedView>(), FeedPresenter {
     @Suppress("ProtectedInFinal")
@@ -33,20 +31,20 @@ class FeedPresenterImpl : BasePresenterImpl<FeedView>(), FeedPresenter {
     protected lateinit var bus: EventBusProvider
 
     private var paginationSubscription: Disposable? = null
-    private val selector = AtomicInteger(1)
 
     //offset:
     @Volatile
     private var lastFeedItem: UserFeed? = null //older
     @Volatile
     private var firstFeedItem: UserFeed? = null
+    private val hasMore = AtomicBoolean(true)
 
     init {
         DI.component.inject(this)
 
         bus.register(OnNetworkConnected::class.java)
                 .subscribe({
-                    selector.incrementAndGet()
+                    hasMore.set(true) // unlock pagination
                     firstFeedItem?.let {
                         addItemsToTop(feedItem = it, scrollToTop = false)
                     }
@@ -87,7 +85,7 @@ class FeedPresenterImpl : BasePresenterImpl<FeedView>(), FeedPresenter {
     }
 
     private fun addItemsToTop(feedItem: UserFeed, scrollToTop: Boolean) {
-        feedInteractor.getFeeds(GetNewerUserFeedsRequest(LIMIT, feedItem.id))
+        feedInteractor.getFeeds(GetNewerUserFeedsRequest(PAGINATION_LIMIT, feedItem.id))
                 .ioToMain()
                 .subscribe({ feeds ->
                     onceViewAttached {
@@ -112,35 +110,25 @@ class FeedPresenterImpl : BasePresenterImpl<FeedView>(), FeedPresenter {
 
     private fun resetOffset() {
         lastFeedItem = null
+        hasMore.set(true)
     }
 
     private fun createPaginationTool(view: FeedView, skipProgressForFirstLoading: Boolean = false) {
-        val recyclerView = view.feedRecyclerView
-        val localEmptyListCount = view.emptyListCount
         val skipProgress = AtomicBoolean(skipProgressForFirstLoading)
-
-        //2. unSubscribe previous pagination tool
         paginationSubscription?.dispose()
 
-
-        //3. create new pagination tool
-        paginationSubscription = PaginationTool.builder<List<UserFeed>>(recyclerView) {
-            beforeLoadingListener = { _ ->
-                if (!skipProgress.getAndSet(false)) {
-                    onceViewAttached { it.showLoadingProgress() }
+        paginationSubscription = view.scrollObservable
+                .filter { hasMore.get() }
+                .doOnNext {
+                    if (!skipProgress.getAndSet(false)) {
+                        onceViewAttached { it.showLoadingProgress() }
+                    }
                 }
-            }
-            limit = LIMIT
-            emptyListCount = localEmptyListCount
-            pagingListener = { offset -> getFeeds(offset) }
-            keySelector = { selector.get() }
-        }
+                .switchMap { getFeeds(it) }
                 .ioToMain()
                 .subscribe({ feeds ->
                     onceViewAttached {
-                        if (feeds.isNotEmpty()) {
-                            selector.incrementAndGet()
-                        }
+                        hasMore.set(feeds.isNotEmpty())
                         updateOffset(feeds)
                         it.addItems(feeds)
                         it.hideLoadingProgress()
@@ -179,7 +167,7 @@ class FeedPresenterImpl : BasePresenterImpl<FeedView>(), FeedPresenter {
     private fun getFeeds(offset: Int): Observable<List<UserFeed>> {
         val maxId: Long? = if (offset == 0) null
         else lastFeedItem?.id
-        return feedInteractor.getFeeds(GetOlderUserFeedsRequest(LIMIT, maxId))
+        return feedInteractor.getFeeds(GetOlderUserFeedsRequest(PAGINATION_LIMIT, maxId))
     }
 
     override fun logout() {

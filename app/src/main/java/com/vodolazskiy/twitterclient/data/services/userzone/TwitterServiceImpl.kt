@@ -20,12 +20,16 @@ internal class TwitterServiceImpl constructor(session: TwitterSession, @DataConv
         return Observable.create<List<UserFeedEntity>> { subscriber ->
             val callback = object : Callback<List<Tweet>>() {
                 override fun success(result: Result<List<Tweet>>) {
-                    subscriber.onNext(converter.convertCollection(result.data, UserFeedEntity::class.java))
-                    subscriber.onComplete()
+                    if (!subscriber.isDisposed) {
+                        subscriber.onNext(converter.convertCollection(result.data, UserFeedEntity::class.java))
+                        subscriber.onComplete()
+                    }
                 }
 
                 override fun failure(e: TwitterException) {
-                    subscriber.onError(handler.handle(e))
+                    if (!subscriber.isDisposed) {
+                        subscriber.onError(handler.handle(e))
+                    }
                 }
             }
 
@@ -37,12 +41,16 @@ internal class TwitterServiceImpl constructor(session: TwitterSession, @DataConv
         return Observable.create { subscriber ->
             val callback = object : Callback<Tweet>() {
                 override fun success(result: Result<Tweet>) {
-                    subscriber.onNext(converter.convert(result.data, UserFeedEntity::class.java))
-                    subscriber.onComplete()
+                    if (!subscriber.isDisposed) {
+                        subscriber.onNext(converter.convert(result.data, UserFeedEntity::class.java))
+                        subscriber.onComplete()
+                    }
                 }
 
                 override fun failure(e: TwitterException) {
-                    subscriber.onError(handler.handle(e))
+                    if (!subscriber.isDisposed) {
+                        subscriber.onError(handler.handle(e))
+                    }
                 }
             }
             statusesService.update(request.text, null, null, null, null, null, null, null, null).enqueue(callback)

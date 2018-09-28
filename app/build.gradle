@@ -9,8 +9,8 @@ def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
-    compileSdkVersion build_versions.compile_sdk
-    buildToolsVersion build_versions.build_tools
+    compileSdkVersion 27
+    buildToolsVersion '28.0.3'
 
     defaultConfig {
         applicationId "com.vodolazskiy.twitterclient"
@@ -89,8 +89,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     //support
     implementation deps.support.appcompat
     implementation deps.support.annotations
@@ -98,37 +97,29 @@ dependencies {
     implementation deps.support.constraint
     implementation deps.support.design
     implementation deps.support.cardview
-
     //kotlin
     implementation deps.kotlin.stdlib
-
     //rx
     implementation deps.rx.android
     implementation deps.rx.java
-
     //dagger
     implementation deps.dagger.lib
     kapt deps.dagger.processor
     implementation deps.dagger.android
     kapt deps.dagger.androidProcessor
     implementation deps.dagger.support
-
     //database
     implementation deps.database.roomRuntime
     implementation deps.database.roomRxAdapter
     kapt deps.database.roomAnnotationProcessor
-
     //glide
     implementation deps.glide.glide
     kapt deps.glide.glideCompiler
-
     //twitter
     implementation deps.twitter.core
-
     //mosby
     implementation deps.mosby.core
     implementation deps.mosby.queuing
-
     //tests
     testImplementation deps.tests.spek
     testImplementation deps.tests.spekJunitPlatformEngine

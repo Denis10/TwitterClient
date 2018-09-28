@@ -3,14 +3,14 @@ package com.vodolazskiy.twitterclient.presentation.screens.feed.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.vodolazskiy.twitterclient.domain.converter.models.UserFeed
-import com.vodolazskiy.twitterclient.presentation.base.adapter.BaseSortedPaginationRVAdapter
+import com.vodolazskiy.twitterclient.presentation.base.adapter.BaseSortedRecyclerViewAdapter
 import javax.inject.Inject
 
-class FeedAdapter @Inject constructor() : BaseSortedPaginationRVAdapter<UserFeed>() {
+class FeedAdapter @Inject constructor() : BaseSortedRecyclerViewAdapter<UserFeed>() {
+
     override val itemsComparator: (item1: UserFeed, item2: UserFeed) -> Int = { item1, item2 ->
         item2.createdAt.compareTo(item1.createdAt)
     }
-    override val itemClass: Class<UserFeed> = UserFeed::class.java
 
     override fun createView(parent: ViewGroup, viewType: Int, inflater: LayoutInflater): BaseVH<UserFeed> {
         return FeedHolder.create(parent)
@@ -26,7 +26,7 @@ class FeedAdapter @Inject constructor() : BaseSortedPaginationRVAdapter<UserFeed
     }
 
     init {
-        itemsTheSameComparator = { oldItem, newItem ->
+        contentTheSameComparator = { oldItem, newItem ->
             oldItem.id == newItem.id
                     && oldItem.createdAt == newItem.createdAt
                     && oldItem.text == newItem.text
@@ -37,6 +37,6 @@ class FeedAdapter @Inject constructor() : BaseSortedPaginationRVAdapter<UserFeed
             oldItem.id == newItem.id
         }
 
-        dataStorage = SortedDataStorage(itemClass, this)
+        dataStorage = SortedDataStorage(UserFeed::class.java, this)
     }
 }

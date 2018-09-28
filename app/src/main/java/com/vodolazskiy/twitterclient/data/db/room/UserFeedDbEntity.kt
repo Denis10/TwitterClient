@@ -6,7 +6,9 @@ import android.arch.persistence.room.PrimaryKey
 import com.vodolazskiy.twitterclient.domain.datalayerobjects.modelinterfaces.UserFeedEntity
 import java.util.*
 
-@Entity(tableName = UserFeedDbEntity.TABLE_NAME)
+const val USER_FEED_TABLE_NAME = "UserFeed"
+
+@Entity(tableName = USER_FEED_TABLE_NAME)
 data class UserFeedDbEntity(
         @PrimaryKey
         @ColumnInfo(name = "id")
@@ -17,9 +19,4 @@ data class UserFeedDbEntity(
         override val text: String,
         @ColumnInfo(name = "photoUrl")
         override val mediaUrlHttps: String?
-) : UserFeedEntity {
-
-    companion object {
-        const val TABLE_NAME = "UserFeed"
-    }
-}
+) : UserFeedEntity

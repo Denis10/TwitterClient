@@ -7,6 +7,7 @@ import io.reactivex.Completable
 import io.reactivex.internal.operators.completable.CompletableFromCallable
 
 class PrefsStorageImpl(context: Context) : PrefsStorage {
+
     private val prefs: SharedPreferences = context.getSharedPreferences("TwitterClient", Context.MODE_PRIVATE)
 
     override var twitterToken: String?

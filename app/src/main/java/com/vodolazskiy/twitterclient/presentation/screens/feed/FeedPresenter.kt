@@ -4,6 +4,8 @@ import com.vodolazskiy.twitterclient.domain.converter.models.UserFeed
 import com.vodolazskiy.twitterclient.presentation.base.BasePresenter
 
 interface FeedPresenter : BasePresenter<FeedView> {
+
     fun refreshFeed(firstItem: UserFeed?)
+
     fun logout()
 }

@@ -5,7 +5,7 @@ import com.twitter.sdk.android.core.TwitterApiException
 import com.twitter.sdk.android.core.TwitterException
 import com.vodolazskiy.twitterclient.R
 import com.vodolazskiy.twitterclient.core.L
-import com.vodolazskiy.twitterclient.data.services.exceptions.*
+import com.vodolazskiy.twitterclient.data.services.exceptions.NetworkException
 import com.vodolazskiy.twitterclient.domain.datalayerobjects.componentinterfaces.NetworkExceptionHandler
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
@@ -29,13 +29,13 @@ class NetworkExceptionHandlerImpl @Inject constructor(private val appContext: Co
             return throwable
         }
         return when {
-            isNetworkDisabledException(throwable) -> NetworkDisabledException(appContext.getString(R.string.no_internet_try_later), throwable)
+            isNetworkDisabledException(throwable) -> NetworkException.NetworkDisabledException(appContext.getString(R.string.no_internet_try_later), throwable)
             throwable is TwitterApiException -> return when {
-                isServerError(throwable.statusCode) -> ServerException(appContext.getString(R.string.server_error), throwable)
-                TOO_MANY_REQUESTS == throwable.statusCode -> TooManyRequestsException(appContext.getString(R.string.too_many_requests), throwable)
-                else -> NetworkCommonException(getMessage(throwable), throwable)
+                isServerError(throwable.statusCode) -> NetworkException.ServerException(appContext.getString(R.string.server_error), throwable)
+                TOO_MANY_REQUESTS == throwable.statusCode -> NetworkException.TooManyRequestsException(appContext.getString(R.string.too_many_requests), throwable)
+                else -> NetworkException.NetworkCommonException(getMessage(throwable), throwable)
             }
-            else -> NetworkCommonException(getMessage(throwable), throwable)
+            else -> NetworkException.NetworkCommonException(getMessage(throwable), throwable)
         }
     }
 

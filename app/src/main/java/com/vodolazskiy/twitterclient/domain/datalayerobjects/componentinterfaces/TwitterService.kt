@@ -6,6 +6,7 @@ import com.vodolazskiy.twitterclient.domain.datalayerobjects.request.PostTweetDa
 import io.reactivex.Observable
 
 interface TwitterService {
+
     fun getTimelineItems(request: GetUserFeedsDataRequest): Observable<List<UserFeedEntity>>
 
     fun sendTweet(request: PostTweetDataRequest): Observable<UserFeedEntity>

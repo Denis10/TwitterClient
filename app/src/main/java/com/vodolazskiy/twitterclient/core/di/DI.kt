@@ -12,7 +12,7 @@ object DI {
 
     val context: Context
         get() = appComponent?.context
-                ?: throw DependencyProviderException("Call init() method before!")
+            ?: throw DependencyProviderException("Call init() method before!")
     val component: AppComponent
         get() = appComponent ?: throw DependencyProviderException("Call init() method before!")
 

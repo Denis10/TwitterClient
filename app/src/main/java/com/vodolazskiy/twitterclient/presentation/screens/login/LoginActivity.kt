@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import com.vodolazskiy.twitterclient.R
+import com.vodolazskiy.twitterclient.core.util.ActivityResultListener
 import com.vodolazskiy.twitterclient.presentation.base.BaseActivity
 import com.vodolazskiy.twitterclient.presentation.screens.feed.FeedActivityManager
 import kotlinx.android.synthetic.main.activity_login.*
@@ -15,6 +16,10 @@ class LoginActivity : BaseActivity<LoginView, LoginPresenter>(), LoginView {
     @Inject
     protected lateinit var feedActivityManager: FeedActivityManager
 
+    @Suppress("ProtectedInFinal")
+    @Inject
+    protected lateinit var activityResultListener: TwitterActivityResultListener
+
     override fun createPresenter(): LoginPresenter {
         return LoginPresenterImpl()
     }
@@ -23,12 +28,12 @@ class LoginActivity : BaseActivity<LoginView, LoginPresenter>(), LoginView {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_login)
-        btnTwitterLogin.setOnClickListener { presenter.login(activity = this) }
+        btnTwitterLogin.setOnClickListener { presenter.login() }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        presenter.sendActivityResult(requestCode, resultCode, data)
+        activityResultListener.onActivityResult(ActivityResultListener.ActivityResult(requestCode, resultCode, data))
     }
 
     override fun openFeedScreen() {

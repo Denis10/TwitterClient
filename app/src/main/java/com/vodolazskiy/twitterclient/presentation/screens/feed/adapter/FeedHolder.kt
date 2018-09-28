@@ -8,12 +8,12 @@ import android.view.ViewGroup
 import com.vodolazskiy.twitterclient.R
 import com.vodolazskiy.twitterclient.core.di.DI
 import com.vodolazskiy.twitterclient.domain.converter.models.UserFeed
-import com.vodolazskiy.twitterclient.presentation.base.adapter.BasePaginationRVAdapter
+import com.vodolazskiy.twitterclient.presentation.base.adapter.BaseRecyclerViewAdapter
 import com.vodolazskiy.twitterclient.presentation.glide.ImageBinder
 import kotlinx.android.synthetic.main.item_feed.view.*
 import javax.inject.Inject
 
-class FeedHolder private constructor(itemView: View) : BasePaginationRVAdapter.BaseVH<UserFeed>(itemView) {
+class FeedHolder private constructor(itemView: View) : BaseRecyclerViewAdapter.BaseVH<UserFeed>(itemView) {
 
     @Suppress("ProtectedInFinal")
     @Inject

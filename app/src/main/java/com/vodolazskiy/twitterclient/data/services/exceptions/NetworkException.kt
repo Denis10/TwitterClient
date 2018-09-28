@@ -16,6 +16,4 @@ abstract class NetworkException : Exception {
     constructor(detailMessage: String, throwable: Throwable, code: Int) : super(detailMessage, throwable) {
         this.statusCode = code
     }
-
-
 }

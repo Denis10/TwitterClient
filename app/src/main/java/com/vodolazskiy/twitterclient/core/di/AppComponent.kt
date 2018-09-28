@@ -18,7 +18,9 @@ import javax.inject.Singleton
     ScreensProviderModule::class,
     EventBusModule::class,
     NetworkModule::class,
-    ImageModule::class
+    ImageModule::class,
+    TwitterActivityResultModule::class,
+    ActivityUtils::class
 ])
 interface AppComponent : AppGraph {
 

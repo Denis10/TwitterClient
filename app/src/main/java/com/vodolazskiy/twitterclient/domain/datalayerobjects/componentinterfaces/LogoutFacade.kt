@@ -3,5 +3,6 @@ package com.vodolazskiy.twitterclient.domain.datalayerobjects.componentinterface
 import io.reactivex.Completable
 
 interface LogoutFacade {
+
     fun deleteAll(): Completable
 }

@@ -19,6 +19,8 @@ import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
 import javax.inject.Inject
 
+private const val LIMIT = 20
+
 class FeedPresenterImpl : BasePresenterImpl<FeedView>(), FeedPresenter {
     @Suppress("ProtectedInFinal")
     @Inject
@@ -105,6 +107,7 @@ class FeedPresenterImpl : BasePresenterImpl<FeedView>(), FeedPresenter {
                         it.showLoadingError(throwable.localizedMessage)
                     }
                 })
+                .bind(this)
     }
 
     private fun resetOffset() {
@@ -188,9 +191,5 @@ class FeedPresenterImpl : BasePresenterImpl<FeedView>(), FeedPresenter {
                     L.exception(it)
                 })
                 .bind(this)
-    }
-
-    private companion object {
-        private const val LIMIT = 20
     }
 }

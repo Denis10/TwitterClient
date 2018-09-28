@@ -1,7 +1,5 @@
 package com.vodolazskiy.twitterclient.presentation.screens.login
 
-import android.app.Activity
-import android.content.Intent
 import com.vodolazskiy.twitterclient.core.L
 import com.vodolazskiy.twitterclient.core.di.DI
 import com.vodolazskiy.twitterclient.core.ioToMain
@@ -19,12 +17,8 @@ class LoginPresenterImpl : BasePresenterImpl<LoginView>(), LoginPresenter {
         DI.component.inject(this)
     }
 
-    override fun sendActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        openZoneInteractor.callActivityResult(requestCode, resultCode, data)
-    }
-
-    override fun login(activity: Activity) {
-        openZoneInteractor.login(activity)
+    override fun login() {
+        openZoneInteractor.login()
                 .ioToMain()
                 .subscribe({
                     onceViewAttached { it.openFeedScreen() }

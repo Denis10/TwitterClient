@@ -11,10 +11,16 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import javax.inject.Inject
 
+private const val SERVER_ERROR_500 = 500
+private const val SERVER_ERROR_501 = 501
+private const val SERVER_ERROR_502 = 502
+private const val SERVER_ERROR_503 = 503
+private const val SERVER_ERROR_504 = 504
+private const val SERVER_ERROR_509 = 509
+private const val TOO_MANY_REQUESTS = 429
 
 class NetworkExceptionHandlerImpl @Inject constructor(private val appContext: Context) :
         NetworkExceptionHandler {
-
 
     override fun handle(throwable: Throwable): Throwable {
         L.exception(throwable)
@@ -59,15 +65,5 @@ class NetworkExceptionHandlerImpl @Inject constructor(private val appContext: Co
             SERVER_ERROR_500, SERVER_ERROR_501, SERVER_ERROR_502, SERVER_ERROR_503, SERVER_ERROR_504, SERVER_ERROR_509 -> true
             else -> false
         }
-    }
-
-    companion object {
-        private const val SERVER_ERROR_500 = 500
-        private const val SERVER_ERROR_501 = 501
-        private const val SERVER_ERROR_502 = 502
-        private const val SERVER_ERROR_503 = 503
-        private const val SERVER_ERROR_504 = 504
-        private const val SERVER_ERROR_509 = 509
-        private const val TOO_MANY_REQUESTS = 429
     }
 }

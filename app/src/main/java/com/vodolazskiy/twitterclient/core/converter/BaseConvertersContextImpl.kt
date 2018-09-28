@@ -1,7 +1,8 @@
 package com.vodolazskiy.twitterclient.core.converter
 
-
 import kotlin.reflect.KFunction3
+
+private val TAG = BaseConvertersContextImpl::class.java.simpleName
 
 abstract class BaseConvertersContextImpl : ConvertersContext {
     private val converters = HashMap<
@@ -103,9 +104,5 @@ abstract class BaseConvertersContextImpl : ConvertersContext {
         val exception = UnsupportedOperationException(TAG + " There is no available converters between " +
                 inClass.name + " and " + outClass.name)
         throw exception
-    }
-
-    private companion object {
-        private val TAG = BaseConvertersContextImpl::class.java.simpleName
     }
 }
